@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #0A0A0F; /* Background Utama - Dark/Black */
+  color: #F5F7FA; /* Text Utama */
+  font-family: 'Inter', sans-serif; /* Body Font */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* KELAS UTILITAS FONT */
+.font-mono, 
+.stats-number, 
+.wallet-address, 
+.contract-data {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.site-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #0A0A0F;
+}
+
+.site-bg-grid {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  /* Grid menggunakan warna Muted dengan opacity sangat tipis */
+  background-image:
+    linear-gradient(rgba(154, 163, 178, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(154, 163, 178, 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+.site-bg-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  /* Hanya menggunakan pancaran Cyan tipis, menghapus Violet sepenuhnya dari background */
+  background:
+    radial-gradient(circle at top center, rgba(34, 211, 238, 0.08), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(34, 211, 238, 0.04), transparent 25%),
+    radial-gradient(circle at 50% 90%, rgba(34, 211, 238, 0.05), transparent 30%);
+}
+
+.site-bg-noise {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: radial-gradient(#F5F7FA 0.7px, transparent 0.7px);
+  background-size: 20px 20px;
+}
+
+.page-wrap {
+  position: relative;
+  z-index: 10;
+}
+
+.section-border {
+  border-bottom: 1px solid rgba(154, 163, 178, 0.15); /* Muted */
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #9AA3B2; /* Muted */
+}
+
+.page-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.4rem, 6vw, 5.2rem);
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+  font-weight: 600;
+  color: #F5F7FA;
+}
+
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.9rem, 4vw, 3.3rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+  color: #F5F7FA;
+}
+
+.body-copy {
+  color: #9AA3B2; /* Muted */
+  line-height: 2;
+}
+
+.panel {
+  border: 1px solid rgba(154, 163, 178, 0.15);
+  background: rgba(17, 19, 26, 0.6); /* Surface */
+  backdrop-filter: blur(12px);
+}
+
+.panel-dark {
+  border: 1px solid rgba(154, 163, 178, 0.1);
+  background: rgba(10, 10, 15, 0.5);
+  backdrop-filter: blur(12px);
+}
+
+.badge {
+  /* Violet tetap dipakai di sini sebagai aksen kecil */
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: rgba(139, 92, 246, 0.15);
+  color: #8B5CF6;
+  border-radius: 9999px;
+  padding: 0.55rem 1rem;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+
+.pill {
+  border: 1px solid rgba(154, 163, 178, 0.2);
+  background: #11131A; /* Surface */
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #F5F7FA;
+}
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: #F5F7FA; 
+  color: #0A0A0F; 
+  padding: 0.85rem 1.6rem;
+  font-size: 0.875rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.primary-button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.2); /* Glow Cyan */
+}
+
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(34, 211, 238, 0.3); /* Outline Cyan */
+  background: rgba(17, 19, 26, 0.8);
+  color: #22D3EE;
+  padding: 0.85rem 1.6rem;
+  font-size: 0.875rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.secondary-button:hover {
+  background: rgba(34, 211, 238, 0.1);
+  border-color: rgba(34, 211, 238, 0.6);
+}
