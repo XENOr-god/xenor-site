@@ -1,60 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# XENØr Site
 
-## Getting Started
+Canonical public surface for XENØr.
 
-First, run the development server:
+This repository contains the public-facing website for XENØr. It exists to keep
+architecture, repositories, contract context, and official presence aligned
+through one inspectable surface.
+
+## Focus
+
+- canonical public surface
+- architecture and research framing
+- repository map and module boundaries
+- contract and market-context references
+- verified public presence and communication routes
+
+## Design Principles
+
+- one canonical route for public context
+- explicit separation between execution, simulation, and public surface
+- release language tied to inspectable evidence
+- public references that resolve cleanly across routes
+- research-first communication instead of hype-first messaging
+
+## Public Routes
+
+- `/` — homepage and top-level public surface
+- `/vision` — project thesis and research direction
+- `/architecture` — execution, validation, and public surface boundaries
+- `/repositories` — public map for `xenor-core`, `xenor-sim`, and `xenor-site`
+- `/contract` — canonical contract and launch-context surface
+- `/presence` — official channels and public trust boundaries
+
+## Related Repositories
+
+- **xenor-core** — core protocol and systems work
+- **xenor-sim** — simulation and modeling environment
+- **xenor-sale** — archived early sale experiment, kept for reference only
+
+## Local Development
+
+Run the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Useful commands:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` — start the local development server
+- `npm run build` — create a production build
+- `npm run lint` — run ESLint
 
-## Contract And Market Config
+## Environment
 
-Copy `.env.example` to `.env.local` and set the contract and market variables:
+Copy `.env.example` to `.env.local` and set the values that apply to the current
+deployment.
 
-- `NEXT_PUBLIC_CONTRACT_ADDRESS`
-- `NEXT_PUBLIC_CHAIN_ID`
-- `NEXT_PUBLIC_TOKEN_ADDRESS`
-- `NEXT_PUBLIC_PAIR_ADDRESS`
-- `NEXT_PUBLIC_EXPLORER_URL`
-- `NEXT_PUBLIC_DEXSCREENER_URL`
-- `NEXT_PUBLIC_TRADING_URL`
-- `NEXT_PUBLIC_GITHUB_ORG`
-- `NEXT_PUBLIC_GITHUB_REPOS`
-- `NEXT_PUBLIC_X_ACCOUNT`
-- `NEXT_PUBLIC_DEXSCREENER_API`
-- `SOLANA_RPC_URL` (optional, for realtime Top 10 H and holders metrics)
-- `NEXT_PUBLIC_DEV_WALLET` (optional, for realtime Dev H metric)
-- `SOLANA_TRACKER_API_KEY` (optional, unlocks realtime snipers/insiders/bundlers/lp/pro-traders)
-- `SOLANA_TRACKER_API_BASE` (optional override, defaults to `https://data.solanatracker.io`)
-- `TOKEN_INTEL_OVERRIDE_*` (optional manual override for Token Info cards)
+Contract and routing:
 
-The Contract page uses these values to resolve canonical CA actions, market lookup, and live trading routes.
-The Presence page uses these values to render official channel surfaces and activity lookups.
+- `NEXT_PUBLIC_CONTRACT_ADDRESS` — canonical contract address shown on the site
+- `NEXT_PUBLIC_CHAIN_ID` — chain id used by market and explorer routes
+- `NEXT_PUBLIC_TOKEN_ADDRESS` — token address used for token intel lookups
+- `NEXT_PUBLIC_PAIR_ADDRESS` — pair address for market references
+- `NEXT_PUBLIC_DEXSCREENER_PAIR_ADDRESS` — legacy fallback pair alias
+- `NEXT_PUBLIC_EXPLORER_URL` — explicit explorer URL override
+- `NEXT_PUBLIC_DEXSCREENER_URL` — DexScreener base or direct route
+- `NEXT_PUBLIC_TRADING_URL` — direct trading route override
 
-## Learn More
+Presence and public channels:
 
-To learn more about Next.js, take a look at the following resources:
+- `NEXT_PUBLIC_GITHUB_ORG` — GitHub organization or owner used on Presence
+- `NEXT_PUBLIC_GITHUB_REPOS` — comma-separated public repository list
+- `NEXT_PUBLIC_X_ACCOUNT` — canonical X account
+- `NEXT_PUBLIC_DEXSCREENER_API` — DexScreener search endpoint override
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Token intel and overrides:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `SOLANA_RPC_URL` — optional Solana RPC for holders and Top 10 H reads
+- `NEXT_PUBLIC_DEV_WALLET` — optional wallet used for Dev H calculations
+- `SOLANA_TRACKER_API_KEY` — optional Solana Tracker API key
+- `SOLANA_TRACKER_API_BASE` — optional Solana Tracker API base override
+- `TOKEN_INTEL_OVERRIDE_*` — optional manual overrides for token intel cards
 
-## Deploy on Vercel
+The Contract page uses these values to resolve explorer routes, market context,
+and token telemetry. The Presence page uses them to render official channels and
+public references.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Status
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Active public surface repository for the XENØr project.
