@@ -11,6 +11,7 @@ import {
   type Locale,
   type SearchParamsLike,
 } from "../lib/i18n";
+import { sanitizeGitHubOwner, sanitizeXHandle } from "../lib/url-security";
 
 export const metadata: Metadata = {
   title: "Presence",
@@ -267,13 +268,13 @@ export default async function PresencePage({ searchParams }: PresencePageProps) 
   );
   const copy = presenceCopy[locale];
 
-  const githubOwner =
-    process.env.NEXT_PUBLIC_GITHUB_ORG?.trim() || defaultGithubOwner;
+  const githubOwner = sanitizeGitHubOwner(
+    process.env.NEXT_PUBLIC_GITHUB_ORG,
+    defaultGithubOwner
+  );
   const githubProfileUrl = `https://github.com/${githubOwner}`;
 
-  const xAccountRaw = process.env.NEXT_PUBLIC_X_ACCOUNT?.trim() || "@Xenorlabs";
-  const xAccount = xAccountRaw.startsWith("@") ? xAccountRaw : `@${xAccountRaw}`;
-  const xHandle = xAccount.replace(/^@/, "");
+  const xHandle = sanitizeXHandle(process.env.NEXT_PUBLIC_X_ACCOUNT, "Xenorlabs");
   const xUrl = `https://x.com/${xHandle}`;
 
   const resolvedHeroRoutes = copy.hero.aside.items.map((item) => ({

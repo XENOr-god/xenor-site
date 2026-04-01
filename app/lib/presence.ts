@@ -1,4 +1,10 @@
 import { formatRelativeTime } from "./time";
+import {
+  DEXSCREENER_API_HOSTS,
+  DEXSCREENER_HOSTS,
+  GITHUB_HOSTS,
+  toAllowedExternalUrl,
+} from "./url-security";
 
 type GitHubCommitRaw = {
   sha?: string;
@@ -81,9 +87,12 @@ export async function fetchGitHubLatestCommit(
   repo: string,
   token?: string
 ): Promise<GitHubLatestCommit | null> {
+  const safeOwner = encodeURIComponent(owner.trim());
+  const safeRepo = encodeURIComponent(repo.trim());
+
   try {
     const response = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`,
+      `https://api.github.com/repos/${safeOwner}/${safeRepo}/commits?per_page=1`,
       {
         headers: {
           Accept: "application/vnd.github+json",
@@ -109,8 +118,8 @@ export async function fetchGitHubLatestCommit(
       date: latest.commit.author.date,
       message: latest.commit.message ?? "",
       url:
-        latest.html_url ??
-        `https://github.com/${owner}/${repo}/commit/${latest.sha}`,
+        toAllowedExternalUrl(latest.html_url ?? "", GITHUB_HOSTS) ||
+        `https://github.com/${safeOwner}/${safeRepo}/commit/${latest.sha}`,
     };
   } catch {
     return null;
@@ -150,7 +159,9 @@ export async function fetchDexPairStatus(
     };
   }
 
-  const baseApi = dexscreenerApi?.trim() || defaultDexSearchApi;
+  const baseApi =
+    toAllowedExternalUrl(dexscreenerApi?.trim() || "", DEXSCREENER_API_HOSTS) ||
+    defaultDexSearchApi;
 
   try {
     const response = await fetch(
@@ -179,7 +190,7 @@ export async function fetchDexPairStatus(
 
     const liquidityUsd = toNumber(primary.liquidity?.usd);
     const pairUrl =
-      primary.url ||
+      toAllowedExternalUrl(primary.url ?? "", DEXSCREENER_HOSTS) ||
       (primary.chainId && primary.pairAddress
         ? `https://dexscreener.com/${primary.chainId}/${primary.pairAddress}`
         : "");

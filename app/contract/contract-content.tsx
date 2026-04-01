@@ -18,6 +18,7 @@ import {
   type MarketSurfaceState,
 } from "../lib/market";
 import type { TokenIntelSnapshot } from "../lib/token-intel";
+import { DEXSCREENER_HOSTS, toAllowedExternalUrl } from "../lib/url-security";
 
 type CopyState = "idle" | "copied" | "error";
 
@@ -416,12 +417,13 @@ function toneForCount(value: number | null, safeMin: number): TokenInfoTone {
 }
 
 function toDexEmbedUrl(url: string): string {
-  try {
-    const parsed = new URL(url);
-    if (!parsed.hostname.includes("dexscreener.com")) {
-      return "";
-    }
+  const safeUrl = toAllowedExternalUrl(url, DEXSCREENER_HOSTS);
+  if (!safeUrl) {
+    return "";
+  }
 
+  try {
+    const parsed = new URL(safeUrl);
     parsed.searchParams.set("embed", "1");
     parsed.searchParams.set("theme", "dark");
     parsed.searchParams.set("trades", "0");

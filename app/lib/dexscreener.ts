@@ -1,3 +1,5 @@
+import { DEXSCREENER_HOSTS, toAllowedExternalUrl } from "./url-security";
+
 const DEXSCREENER_API_BASE = "https://api.dexscreener.com";
 
 type DexToken = {
@@ -108,7 +110,7 @@ export function normalizePair(pair: DexPairRaw): MarketPair | null {
     marketCap: toNumber(pair.marketCap),
     pairCreatedAt: toNumber(pair.pairCreatedAt),
     priceChange24h: toNumber(pair.priceChange?.h24),
-    url: pair.url ?? null,
+    url: pair.url ? toAllowedExternalUrl(pair.url, DEXSCREENER_HOSTS) || null : null,
   };
 }
 
@@ -205,5 +207,8 @@ export function choosePrimaryPair(pairs: MarketPair[]): MarketPair | null {
 }
 
 export function getPairUrl(pair: MarketPair): string {
-  return pair.url ?? `https://dexscreener.com/${pair.chainId}/${pair.pairAddress}`;
+  return (
+    (pair.url ? toAllowedExternalUrl(pair.url, DEXSCREENER_HOSTS) : "") ||
+    `https://dexscreener.com/${pair.chainId}/${pair.pairAddress}`
+  );
 }

@@ -5,6 +5,11 @@ import {
   type TokenIntelMetrics,
   type TokenIntelSnapshot,
 } from "../../lib/token-intel";
+import {
+  SOLANA_TRACKER_HOSTS,
+  TRUSTED_SOLANA_RPC_HOSTS,
+  toAllowedExternalUrl,
+} from "../../lib/url-security";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -76,6 +81,15 @@ function withTimeout(signal: AbortSignal | undefined, timeoutMs: number): AbortS
   }
 
   return signal || new AbortController().signal;
+}
+
+function readTrustedServiceUrl(
+  value: string | undefined,
+  fallback: string,
+  allowedHosts: readonly string[]
+): string {
+  const configured = toAllowedExternalUrl(value?.trim() ?? "", allowedHosts);
+  return configured || fallback;
 }
 
 function toAmountNumber(value: string | undefined): number {
@@ -302,7 +316,11 @@ async function loadOnChainMetrics(
   devWallet: string,
   signal?: AbortSignal
 ): Promise<TokenIntelMetrics> {
-  const rpcUrl = process.env.SOLANA_RPC_URL?.trim() || SOLANA_RPC_DEFAULT;
+  const rpcUrl = readTrustedServiceUrl(
+    process.env.SOLANA_RPC_URL,
+    SOLANA_RPC_DEFAULT,
+    TRUSTED_SOLANA_RPC_HOSTS
+  );
 
   const supplyResult = await rpcRequest<RpcTokenSupplyResult>(
     rpcUrl,
@@ -375,8 +393,11 @@ async function fetchSolanaTrackerMetrics(
   apiKey: string,
   signal?: AbortSignal
 ): Promise<SolanaTrackerResult | null> {
-  const baseUrl =
-    process.env.SOLANA_TRACKER_API_BASE?.trim() || SOLANA_TRACKER_API_BASE_DEFAULT;
+  const baseUrl = readTrustedServiceUrl(
+    process.env.SOLANA_TRACKER_API_BASE,
+    SOLANA_TRACKER_API_BASE_DEFAULT,
+    SOLANA_TRACKER_HOSTS
+  );
   const requestSignal = withTimeout(signal, SOLANA_TRACKER_TIMEOUT_MS);
   const response = await fetch(`${baseUrl}/tokens/${tokenAddress}`, {
     method: "GET",

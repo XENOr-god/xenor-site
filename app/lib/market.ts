@@ -10,6 +10,11 @@ import {
   defaultDexScreenerPairAddress,
   defaultDexScreenerUrl,
 } from "./xenor-data";
+import {
+  DEXSCREENER_HOSTS,
+  toAllowedExternalUrl,
+  toSafeExternalUrl,
+} from "./url-security";
 
 export type ContractConfig = {
   contractAddress: string;
@@ -71,9 +76,11 @@ export function getContractConfig(): ContractConfig {
     fromEnv("NEXT_PUBLIC_PAIR_ADDRESS") ||
     fromEnv("NEXT_PUBLIC_DEXSCREENER_PAIR_ADDRESS") ||
     defaultDexScreenerPairAddress;
-  const explorerUrl = fromEnv("NEXT_PUBLIC_EXPLORER_URL");
-  const dexScreenerUrl = fromEnv("NEXT_PUBLIC_DEXSCREENER_URL") || defaultDexScreenerUrl;
-  const tradingUrl = fromEnv("NEXT_PUBLIC_TRADING_URL");
+  const explorerUrl = toSafeExternalUrl(fromEnv("NEXT_PUBLIC_EXPLORER_URL"));
+  const dexScreenerUrl =
+    toAllowedExternalUrl(fromEnv("NEXT_PUBLIC_DEXSCREENER_URL"), DEXSCREENER_HOSTS) ||
+    defaultDexScreenerUrl;
+  const tradingUrl = toSafeExternalUrl(fromEnv("NEXT_PUBLIC_TRADING_URL"));
 
   return {
     contractAddress: contract,
