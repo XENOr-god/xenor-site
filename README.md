@@ -20,6 +20,30 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Contract And Market Config
+
+Copy `.env.example` to `.env.local` and set the contract and market variables:
+
+- `NEXT_PUBLIC_CONTRACT_ADDRESS`
+- `NEXT_PUBLIC_CHAIN_ID`
+- `NEXT_PUBLIC_TOKEN_ADDRESS`
+- `NEXT_PUBLIC_PAIR_ADDRESS`
+- `NEXT_PUBLIC_EXPLORER_URL`
+- `NEXT_PUBLIC_DEXSCREENER_URL`
+- `NEXT_PUBLIC_TRADING_URL`
+- `NEXT_PUBLIC_GITHUB_ORG`
+- `NEXT_PUBLIC_GITHUB_REPOS`
+- `NEXT_PUBLIC_X_ACCOUNT`
+- `NEXT_PUBLIC_DEXSCREENER_API`
+- `SOLANA_RPC_URL` (optional, for realtime Top 10 H and holders metrics)
+- `NEXT_PUBLIC_DEV_WALLET` (optional, for realtime Dev H metric)
+- `SOLANA_TRACKER_API_KEY` (optional, unlocks realtime snipers/insiders/bundlers/lp/pro-traders)
+- `SOLANA_TRACKER_API_BASE` (optional override, defaults to `https://data.solanatracker.io`)
+- `TOKEN_INTEL_OVERRIDE_*` (optional manual override for Token Info cards)
+
+The Contract page uses these values to resolve canonical CA actions, market lookup, and live trading routes.
+The Presence page uses these values to render official channel surfaces and activity lookups.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
