@@ -1,0 +1,3 @@
+[submodule "xenor-native"]
+	path = xenor-native
+	url = https://github.com/XENOr-god/xenor-native.git
