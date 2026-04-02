@@ -1,10 +1,10 @@
 # XENØr Site
 
-Canonical public surface for XENØr.
+Canonical public surface for the XENØr research stack.
 
-This repository contains the public-facing website for XENØr. It exists to keep
-architecture, repositories, contract context, and official presence aligned
-through one inspectable surface.
+This repository contains the public-facing site for XENØr. It keeps
+architecture, repository boundaries, contract context, and official presence
+aligned through one inspectable surface.
 
 ## Focus
 
@@ -33,9 +33,9 @@ through one inspectable surface.
 
 ## Related Repositories
 
-- **xenor-core** — core protocol and systems work
-- **xenor-sim** — simulation and modeling environment
-- **xenor-sale** — archived early sale experiment, kept for reference only
+- **xenor-core** — deterministic execution core
+- **xenor-sim** — simulation and validation environment
+- **xenor-sale** — archived research record kept for reference only
 
 ## Local Development
 
@@ -91,4 +91,4 @@ public references.
 
 ## Status
 
-Active public surface repository for the XENØr project.
+Active public surface repository for the XENØr stack.
