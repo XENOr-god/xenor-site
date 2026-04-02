@@ -35,6 +35,8 @@ aligned through one inspectable surface.
 
 - **xenor-core** — deterministic execution core
 - **xenor-sim** — simulation and validation environment
+- **xenor-native** — native deterministic backend maintained as a standalone
+  repository and pinned here as a Git submodule
 - **xenor-sale** — archived research record kept for reference only
 
 ## Local Development
@@ -53,6 +55,38 @@ Useful commands:
 - `npm run dev` — start the local development server
 - `npm run build` — create a production build
 - `npm run lint` — run ESLint
+- `make submodules-init` — initialize and sync git submodules
+- `make native-smoke` — run a lightweight deterministic smoke command inside
+  `xenor-native`
+
+## xenor-native Submodule
+
+`xenor-native` is not a plain folder in this repository. It is a Git submodule
+that points to the standalone native backend:
+
+- GitHub: `https://github.com/XENOr-god/xenor-native`
+- local path in this repository: `xenor-native/`
+
+Clone this repository with submodules from the start:
+
+```bash
+git clone --recurse-submodules https://github.com/XENOr-god/xenor-site.git
+```
+
+If you already cloned the repository without submodules, initialize them later:
+
+```bash
+git submodule update --init --recursive
+```
+
+`xenor-native` carries the deterministic simulation workspace for seed/input
+handling, tick-phase execution, replay validation, snapshot extraction, and
+checksum verification. `xenor-web` uses the submodule so its documentation and
+CI reference a reviewed native revision instead of copying native code into the
+site repository.
+
+Integration details and submodule maintenance commands are documented in
+[`docs/native-integration.md`](/home/lockedin/Projects/xenor-web/docs/native-integration.md).
 
 ## Environment
 
