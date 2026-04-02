@@ -85,6 +85,11 @@ checksum verification. `xenor-web` uses the submodule so its documentation and
 CI reference a reviewed native revision instead of copying native code into the
 site repository.
 
+Submodule bumps are maintained through automation pull requests. When
+`xenor-native` lands a validated change on `main`, it can dispatch a sync
+request so `xenor-web` opens or refreshes a PR that updates the submodule
+pointer and reruns the native integration checks.
+
 Integration details and submodule maintenance commands are documented in
 [`docs/native-integration.md`](/home/lockedin/Projects/xenor-web/docs/native-integration.md).
 

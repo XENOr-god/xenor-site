@@ -1,0 +1,192 @@
+name: Sync xenor-native Submodule
+
+on:
+  repository_dispatch:
+    types: [xenor-native-sync]
+  workflow_dispatch:
+    inputs:
+      target_sha:
+        description: Optional xenor-native commit SHA to pin
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: xenor-native-sync
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout xenor-web with submodules
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Verify submodule checkout
+        run: |
+          git submodule status --recursive
+          test -f xenor-native/Cargo.toml
+          git -C xenor-native rev-parse --is-inside-work-tree
+
+      - name: Resolve target xenor-native commit
+        id: resolve
+        env:
+          DISPATCH_SHA: ${{ github.event.client_payload.sha }}
+          MANUAL_SHA: ${{ github.event.inputs.target_sha }}
+        run: |
+          set -euo pipefail
+          git -C xenor-native fetch --no-tags origin main
+
+          CURRENT_SHA="$(git -C xenor-native rev-parse HEAD)"
+          TARGET_SHA="${DISPATCH_SHA:-${MANUAL_SHA:-}}"
+          if [[ -z "${TARGET_SHA}" ]]; then
+            TARGET_SHA="$(git -C xenor-native rev-parse origin/main)"
+          fi
+
+          if ! git -C xenor-native cat-file -e "${TARGET_SHA}^{commit}" 2>/dev/null; then
+            echo "::error::Target xenor-native commit ${TARGET_SHA} is not available after fetching origin/main."
+            exit 1
+          fi
+
+          SHORT_SHA="${TARGET_SHA:0:12}"
+
+          echo "current_sha=${CURRENT_SHA}" >> "${GITHUB_OUTPUT}"
+          echo "target_sha=${TARGET_SHA}" >> "${GITHUB_OUTPUT}"
+          echo "short_sha=${SHORT_SHA}" >> "${GITHUB_OUTPUT}"
+
+          if [[ "${CURRENT_SHA}" == "${TARGET_SHA}" ]]; then
+            echo "needs_update=false" >> "${GITHUB_OUTPUT}"
+          else
+            echo "needs_update=true" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Exit when xenor-native is already current
+        if: steps.resolve.outputs.needs_update == 'false'
+        env:
+          TARGET_SHA: ${{ steps.resolve.outputs.target_sha }}
+        run: |
+          echo "xenor-native already points at ${TARGET_SHA}. No automation PR is needed."
+
+      - name: Fetch existing automation branch
+        if: steps.resolve.outputs.needs_update == 'true'
+        env:
+          SYNC_BRANCH: automation/xenor-native-sync
+        run: git fetch origin "${SYNC_BRANCH}:refs/remotes/origin/${SYNC_BRANCH}" || true
+
+      - name: Create automation branch
+        if: steps.resolve.outputs.needs_update == 'true'
+        env:
+          SYNC_BRANCH: automation/xenor-native-sync
+        run: git switch -C "${SYNC_BRANCH}"
+
+      - name: Update xenor-native submodule pointer
+        if: steps.resolve.outputs.needs_update == 'true'
+        env:
+          TARGET_SHA: ${{ steps.resolve.outputs.target_sha }}
+        run: |
+          git -C xenor-native checkout --detach "${TARGET_SHA}"
+          git add xenor-native
+          git submodule status --recursive
+
+      - name: Install Node
+        if: steps.resolve.outputs.needs_update == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install Rust
+        if: steps.resolve.outputs.needs_update == 'true'
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install site dependencies
+        if: steps.resolve.outputs.needs_update == 'true'
+        run: npm ci
+
+      - name: Lint site
+        if: steps.resolve.outputs.needs_update == 'true'
+        run: make lint
+
+      - name: Run native tests
+        if: steps.resolve.outputs.needs_update == 'true'
+        run: make native-test
+
+      - name: Run native smoke command
+        if: steps.resolve.outputs.needs_update == 'true'
+        run: make native-smoke
+
+      - name: Commit automation update
+        if: steps.resolve.outputs.needs_update == 'true'
+        env:
+          SHORT_SHA: ${{ steps.resolve.outputs.short_sha }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: bump xenor-native submodule to ${SHORT_SHA}"
+
+      - name: Push automation branch
+        if: steps.resolve.outputs.needs_update == 'true'
+        env:
+          SYNC_BRANCH: automation/xenor-native-sync
+        run: git push --force-with-lease origin "HEAD:${SYNC_BRANCH}"
+
+      - name: Create or update sync pull request
+        if: steps.resolve.outputs.needs_update == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = 'automation/xenor-native-sync';
+            const targetSha = '${{ steps.resolve.outputs.target_sha }}';
+            const shortSha = '${{ steps.resolve.outputs.short_sha }}';
+            const sourceRepository = context.payload.client_payload?.repository || 'XENOr-god/xenor-native';
+            const commitUrl = context.payload.client_payload?.commit_url || `https://github.com/XENOr-god/xenor-native/commit/${targetSha}`;
+            const { owner, repo } = context.repo;
+            const title = `chore: bump xenor-native submodule to ${shortSha}`;
+            const body = [
+              'Automated xenor-native submodule sync.',
+              '',
+              `- target commit: \`${targetSha}\``,
+              `- source repository: \`${sourceRepository}\``,
+              `- source commit: ${commitUrl}`,
+              '',
+              'Validation run in this workflow:',
+              '- `make lint`',
+              '- `make native-test`',
+              '- `make native-smoke`'
+            ].join('\n');
+
+            const { data: pulls } = await github.rest.pulls.list({
+              owner,
+              repo,
+              state: 'open',
+              head: `${owner}:${branch}`,
+              base: 'main'
+            });
+
+            if (pulls.length > 0) {
+              await github.rest.pulls.update({
+                owner,
+                repo,
+                pull_number: pulls[0].number,
+                title,
+                body
+              });
+              core.info(`Updated existing PR #${pulls[0].number}`);
+            } else {
+              const { data: pull } = await github.rest.pulls.create({
+                owner,
+                repo,
+                title,
+                body,
+                head: branch,
+                base: 'main'
+              });
+              core.info(`Created PR #${pull.number}`);
+            }
