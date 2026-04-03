@@ -8,7 +8,7 @@ repository map, architecture framing, and official links aligned in one place.
 
 Active public surface repository. The site is live and useful today, but this
 repository is still an actively evolving application rather than a versioned
-public-release SDK.
+package or SDK.
 
 ## Why This Repo Exists
 
@@ -68,7 +68,7 @@ git submodule update --init --recursive
 ```
 
 Integration details live in
-[`docs/native-integration.md`](/home/lockedin/Projects/xenor-web/docs/native-integration.md).
+[`docs/native-integration.md`](docs/native-integration.md).
 
 ## Repository Boundaries / Non-goals
 
@@ -121,6 +121,12 @@ Token intel and overrides:
 - [`xenor-sale`](https://github.com/XENOr-god/xenor-sale) — archived
   historical sale prototype
 
+## Contributing
+
+No standalone contributing guide is currently published in this repository.
+Use issues or pull requests for concrete fixes, and use GitHub Discussions for
+broader site or public-surface questions.
+
 ## License
 
-This repository does not currently publish a separate license file.
+No standalone license file is currently published in this repository.
