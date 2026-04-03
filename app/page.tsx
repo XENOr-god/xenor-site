@@ -171,6 +171,12 @@ const sharedHomeCopy = {
         external: true,
       },
       {
+        title: "Simulation proof",
+        tag: "demo",
+        body: "A deterministic settlement slice rendered from real Rust engine output.",
+        href: "/simulation",
+      },
+      {
         title: "X / presence",
         tag: "channels",
         body: "Official communication routes, social surface, and signaling boundaries.",

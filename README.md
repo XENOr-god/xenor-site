@@ -44,6 +44,8 @@ Useful commands:
 - `make submodules-init` — initialize and sync git submodules
 - `make native-smoke` — run a lightweight deterministic smoke command inside
   `xenor-native`
+- `cargo run --manifest-path ../xenor-engine/rust/Cargo.toml --example settlement_site_demo` —
+  regenerate the deterministic settlement demo contract consumed by `/simulation`
 
 ## xenor-native Submodule
 
@@ -78,6 +80,14 @@ Integration details live in
 - This is not the deterministic engine substrate. Use `xenor-engine` for that.
 - This is not current sale or launch infrastructure. `xenor-sale` is
   historical only.
+
+## Deterministic Simulation Surface
+
+The `/simulation` route is a small proof that the stack is usable end to end.
+It reads a generated contract from `app/lib/generated/settlement-demo.generated.ts`
+that is produced by the Rust settlement economy slice in `xenor-engine`.
+The page is intentionally simple, but the numbers and digests come from real
+scenario execution, replay verification, snapshot resume, and fixture checks.
 
 ## Environment
 

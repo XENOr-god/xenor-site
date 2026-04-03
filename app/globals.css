@@ -8186,6 +8186,255 @@ h2 {
   }
 }
 
+.simulation-page .section-head {
+  max-width: 760px;
+}
+
+.simulation-stat-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.simulation-stat-card span {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: rgba(210, 214, 224, 0.72);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.simulation-stat-card strong {
+  display: block;
+  color: #f3f6fb;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.simulation-scenario-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.simulation-scenario-card {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.simulation-card-head {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.simulation-card-head h3 {
+  margin: 0.2rem 0 0;
+}
+
+.simulation-seed {
+  color: rgba(223, 227, 236, 0.68);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.simulation-card-copy {
+  margin: 0;
+  color: rgba(223, 227, 236, 0.8);
+}
+
+.simulation-card-strip {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+    rgba(8, 11, 18, 0.88);
+}
+
+.simulation-card-strip div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.simulation-card-strip span {
+  color: rgba(210, 214, 224, 0.68);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.simulation-card-strip strong {
+  color: #f2f6fb;
+  font-size: 1.02rem;
+}
+
+.simulation-detail-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.simulation-detail-block {
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(6, 10, 16, 0.82);
+}
+
+.simulation-detail-block h4,
+.simulation-trace-block h4 {
+  margin: 0 0 0.8rem;
+  color: #f2f6fb;
+  font-size: 0.96rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.simulation-detail-block dl {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+}
+
+.simulation-detail-block dl div {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.simulation-detail-block dt {
+  color: rgba(210, 214, 224, 0.64);
+  font-size: 0.73rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.simulation-detail-block dd {
+  margin: 0;
+  color: rgba(242, 246, 251, 0.92);
+  word-break: break-word;
+}
+
+.simulation-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.5rem;
+  padding: 0.22rem 0.58rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(242, 246, 251, 0.92);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.simulation-pill.is-pass {
+  border-color: rgba(118, 212, 153, 0.35);
+  background: rgba(61, 135, 86, 0.18);
+}
+
+.simulation-pill.is-fail {
+  border-color: rgba(226, 114, 114, 0.36);
+  background: rgba(136, 52, 52, 0.18);
+}
+
+.simulation-trace-block {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.simulation-trace-head {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.simulation-trace-head span {
+  color: rgba(210, 214, 224, 0.68);
+  font-size: 0.8rem;
+}
+
+.simulation-tick-grid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.simulation-tick-card {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(7, 11, 18, 0.76);
+}
+
+.simulation-tick-card strong {
+  color: #f2f6fb;
+}
+
+.simulation-tick-card span,
+.simulation-tick-card small {
+  color: rgba(216, 221, 231, 0.76);
+  word-break: break-word;
+}
+
+.simulation-tick-card em {
+  color: rgba(159, 204, 176, 0.8);
+  font-style: normal;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.simulation-tick-card p {
+  margin: 0;
+  color: rgba(230, 234, 241, 0.84);
+  font-size: 0.88rem;
+}
+
+.simulation-route-note {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.simulation-route-note p {
+  margin: 0;
+  color: rgba(216, 221, 231, 0.78);
+}
+
+@media (max-width: 1024px) {
+  .simulation-stat-grid,
+  .simulation-card-strip,
+  .simulation-detail-grid,
+  .simulation-tick-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .simulation-stat-grid,
+  .simulation-card-strip,
+  .simulation-detail-grid,
+  .simulation-tick-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .simulation-card-head,
+  .simulation-trace-head,
+  .simulation-route-note {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
