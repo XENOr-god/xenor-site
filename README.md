@@ -1,47 +1,33 @@
-# XENØr Site
+# xenor-site
 
-Canonical public surface for the XENØr research stack.
+`xenor-site` is the canonical public surface for the XENOr stack. It is where
+newcomers should start, and it is responsible for keeping the public overview,
+repository map, architecture framing, and official links aligned in one place.
 
-This repository contains the public-facing site for XENØr. It keeps
-architecture, repository boundaries, contract context, and official presence
-aligned through one inspectable surface.
+## Status
 
-## Focus
+Active public surface repository. The site is live and useful today, but this
+repository is still an actively evolving application rather than a versioned
+public-release SDK.
 
-- canonical public surface
-- architecture and research framing
-- repository map and module boundaries
-- contract and market-context references
-- verified public presence and communication routes
+## Why This Repo Exists
 
-## Design Principles
+This repository exists so the XENOr stack has one deliberate public entry point.
+It should explain the stack cleanly, reduce ambiguity between `xenor-core`,
+`xenor-sim`, and `xenor-engine`, and give visitors a trustworthy route into the
+rest of the repositories.
 
-- one canonical route for public context
-- explicit separation between execution, simulation, and public surface
-- release language tied to inspectable evidence
-- public references that resolve cleanly across routes
-- research-first communication instead of hype-first messaging
+## Relationship to the XENOr Stack
 
-## Public Routes
+- `xenor-site` is the first repo most visitors should open
+- `xenor-core` is the deterministic execution/core systems layer
+- `xenor-sim` is the scenario and validation layer
+- `xenor-engine` is the deterministic engine and replay/snapshot substrate
+- `xenor-sale` is archived historical research and not the active launch path
 
-- `/` — homepage and top-level public surface
-- `/vision` — project thesis and research direction
-- `/architecture` — execution, validation, and public surface boundaries
-- `/repositories` — public map for `xenor-core`, `xenor-sim`, and `xenor-site`
-- `/contract` — canonical contract and launch-context surface
-- `/presence` — official channels and public trust boundaries
+## Quick Start / Local Development
 
-## Related Repositories
-
-- **xenor-core** — deterministic execution core
-- **xenor-sim** — simulation and validation environment
-- **xenor-native** — native deterministic backend maintained as a standalone
-  repository and pinned here as a Git submodule
-- **xenor-sale** — archived research record kept for reference only
-
-## Local Development
-
-Run the development server:
+Runtime: a current Node.js toolchain compatible with Next.js 16.
 
 ```bash
 npm install
@@ -61,42 +47,42 @@ Useful commands:
 
 ## xenor-native Submodule
 
-`xenor-native` is not a plain folder in this repository. It is a Git submodule
-that points to the standalone native backend:
+This GitHub repo is `xenor-site`, while the local Next.js workspace and package
+are still named `xenor-web`. The repository also carries a pinned
+`xenor-native` Git submodule so the public site can reference a reviewed native
+revision instead of copying native code into the web repo.
 
 - GitHub: `https://github.com/XENOr-god/xenor-native`
-- local path in this repository: `xenor-native/`
+- local path: `xenor-native/`
 
-Clone this repository with submodules from the start:
+Clone with submodules from the start:
 
 ```bash
 git clone --recurse-submodules https://github.com/XENOr-god/xenor-site.git
 ```
 
-If you already cloned the repository without submodules, initialize them later:
+If you already cloned without submodules:
 
 ```bash
 git submodule update --init --recursive
 ```
 
-`xenor-native` carries the deterministic simulation workspace for seed/input
-handling, tick-phase execution, replay validation, snapshot extraction, and
-checksum verification. `xenor-web` uses the submodule so its documentation and
-CI reference a reviewed native revision instead of copying native code into the
-site repository.
-
-Submodule bumps are maintained through automation pull requests. When
-`xenor-native` lands a validated change on `main`, it can dispatch a sync
-request so `xenor-web` opens or refreshes a PR that updates the submodule
-pointer and reruns the native integration checks.
-
-Integration details and submodule maintenance commands are documented in
+Integration details live in
 [`docs/native-integration.md`](/home/lockedin/Projects/xenor-web/docs/native-integration.md).
+
+## Repository Boundaries / Non-goals
+
+- This is not the authoritative execution/core systems repo. Use `xenor-core`
+  for that.
+- This is not the main scenario-validation repo. Use `xenor-sim` for that.
+- This is not the deterministic engine substrate. Use `xenor-engine` for that.
+- This is not current sale or launch infrastructure. `xenor-sale` is
+  historical only.
 
 ## Environment
 
-Copy `.env.example` to `.env.local` and set the values that apply to the current
-deployment.
+Copy `.env.example` to `.env.local` and set the values that apply to the
+current deployment.
 
 Contract and routing:
 
@@ -124,10 +110,17 @@ Token intel and overrides:
 - `SOLANA_TRACKER_API_BASE` — optional Solana Tracker API base override
 - `TOKEN_INTEL_OVERRIDE_*` — optional manual overrides for token intel cards
 
-The Contract page uses these values to resolve explorer routes, market context,
-and token telemetry. The Presence page uses them to render official channels and
-public references.
+## Related Repositories
 
-## Status
+- [`xenor-core`](https://github.com/XENOr-god/xenor-core) — deterministic
+  execution/core systems layer
+- [`xenor-sim`](https://github.com/XENOr-god/xenor-sim) — scenario and
+  validation layer
+- [`xenor-engine`](https://github.com/XENOr-god/xenor-engine) — deterministic
+  engine and replay/snapshot substrate
+- [`xenor-sale`](https://github.com/XENOr-god/xenor-sale) — archived
+  historical sale prototype
 
-Active public surface repository for the XENØr stack.
+## License
+
+This repository does not currently publish a separate license file.
