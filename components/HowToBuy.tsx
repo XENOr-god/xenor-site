@@ -42,7 +42,7 @@ export default function HowToBuy() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {HOW_TO_BUY.map((step, i) => (
+            {HOW_TO_BUY.map((step) => (
               <motion.div
                 key={step.step}
                 variants={fadeUp}

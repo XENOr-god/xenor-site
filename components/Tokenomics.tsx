@@ -14,13 +14,6 @@ const stagger = {
 };
 
 export default function Tokenomics() {
-  const stats = [
-    { value: XENOR.tokenomics.supply, label: 'TOTAL SUPPLY' },
-    { value: XENOR.tokenomics.teamAlloc, label: 'TEAM ALLOC' },
-    { value: XENOR.tokenomics.vcSale, label: 'VC SALE' },
-    { value: XENOR.tokenomics.fairLaunch, label: 'FAIR LAUNCH' },
-  ];
-
   return (
     <section id="tokenomics" className="relative py-24 md:py-40 px-6 md:px-10 bg-[#050508] overflow-hidden">
       {/* Immersive Background Decorations */}
