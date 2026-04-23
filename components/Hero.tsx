@@ -8,7 +8,11 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
 };
 
-export default function Hero() {
+interface HeroProps {
+  userName?: string;
+}
+
+export default function Hero({ userName }: HeroProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 px-6 md:px-10">
       {/* Immersive Background Layers */}
@@ -73,7 +77,7 @@ export default function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-accent"></span>
               </span>
-              AUTHENTICATED_ACCESS_GRANTED
+              {userName ? `AUTHENTICATED: ${userName.toUpperCase()}` : 'AUTHENTICATED_ACCESS_GRANTED'}
             </div>
           </motion.div>
 
