@@ -17,12 +17,12 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pt-4 md:pt-8 px-6 pointer-events-none">
+      <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pt-4 px-4 md:pt-8 md:px-6 pointer-events-none">
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className={`pointer-events-auto px-6 md:px-8 py-2 md:py-2.5 glass rounded-full border-white/10 flex items-center gap-6 md:gap-12 transition-all duration-700 max-w-fit shadow-[0_8px_32px_rgba(0,0,0,0.4)] ${scrolled ? 'bg-black/80 border-white/20' : ''
+          className={`pointer-events-auto px-5 md:px-8 py-1.5 md:py-2.5 glass rounded-full border-white/10 flex items-center gap-6 md:gap-12 transition-all duration-700 max-w-fit shadow-[0_8px_32px_rgba(0,0,0,0.5)] ${scrolled ? 'bg-black/90 border-white/20' : ''
             }`}
         >
           {/* Main Logo Shortcut */}
