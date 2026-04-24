@@ -1,9 +1,5 @@
-'use client';
-
 import Link from 'next/link';
 import { XENOR, NAVIGATION } from '@/lib/constants';
-
-
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,12 +8,9 @@ export default function Footer() {
     <footer className="relative bg-transparent pt-32 pb-16 overflow-hidden border-t border-white/5">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full grid-bg opacity-5 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-accent/[0.01] blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-accent/[0.01] blur-[120px] pointer-events-none hidden md:block" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
-        
-
-
         {/* Navigation & System Info Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-32">
           
@@ -122,7 +115,7 @@ export default function Footer() {
           {/* System Manifest Block */}
           <div className="lg:col-span-3">
             <div className="p-8 border border-white/5 bg-black/40 relative group overflow-hidden">
-              <div className="absolute inset-0 bg-accent/[0.02] opacity-0 group-hover:opacity-100 animate-scanline pointer-events-none" />
+              <div className="absolute inset-0 bg-accent/[0.02] opacity-0 group-hover:opacity-100 scanline pointer-events-none" />
               <div className="space-y-6 relative z-10">
                 <div className="flex justify-between items-center">
                   <span className="font-mono text-[8px] text-white/20 uppercase tracking-widest">System_Log</span>

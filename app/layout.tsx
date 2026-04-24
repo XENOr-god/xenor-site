@@ -33,11 +33,15 @@ export default function RootLayout({
         {/* Global Blurry Dark GIF Background */}
         <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110 blur-[4px] brightness-[0.3] will-change-transform"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110 brightness-[0.25] sm:brightness-[0.3] md:blur-[4px] will-change-transform hidden md:block"
             style={{ backgroundImage: "url('/assets/images/background.gif')" }}
           />
-          {/* Grain/Noise Overlay for texture */}
-          <div className="absolute inset-0 bg-black/50" />
+          {/* Performant Background for Mobile / Static Layer for Desktop */}
+          <div className="absolute inset-0 bg-bg-base md:bg-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80" />
+          
+          {/* Subtle Mobile Grid to keep the aesthetic without the heavy GIF */}
+          <div className="absolute inset-0 grid-bg opacity-[0.03] md:hidden" />
         </div>
         {children}
       </body>

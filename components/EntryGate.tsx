@@ -82,25 +82,25 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="relative z-10 w-full max-w-lg p-16 glass border border-white/5 overflow-hidden"
+            className="relative z-10 w-[85%] max-w-md p-6 sm:p-12 glass border border-white/5 overflow-hidden mx-auto"
           >
             {/* HUD Corner Decor */}
-            <div className="absolute top-0 left-0 w-12 h-12 border-t-[3px] border-l-[3px] border-accent z-20" />
-            <div className="absolute bottom-0 right-0 w-12 h-12 border-b-[3px] border-r-[3px] border-accent z-20" />
-            <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-white/20" />
-            <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-white/20" />
+            <div className="absolute top-0 left-0 w-6 h-6 sm:w-12 sm:h-12 border-t-[2px] sm:border-t-[3px] border-l-[2px] sm:border-l-[3px] border-accent z-20" />
+            <div className="absolute bottom-0 right-0 w-6 h-6 sm:w-12 sm:h-12 border-b-[2px] sm:border-b-[3px] border-r-[2px] sm:border-r-[3px] border-accent z-20" />
+            <div className="absolute top-0 right-0 w-3 h-3 sm:w-4 sm:h-4 border-t border-r border-white/20" />
+            <div className="absolute bottom-0 left-0 w-3 h-3 sm:w-4 sm:h-4 border-b border-l border-white/20" />
 
             <div className="relative z-10 text-center">
-              <div className="mb-12 flex flex-col items-center">
-                <div className="mb-6 flex items-center gap-2">
+              <div className="mb-6 sm:mb-12 flex flex-col items-center">
+                <div className="mb-4 flex items-center gap-2">
                   <span className="pulse-red" />
-                  <span className="text-[10px] text-white/40 uppercase tracking-[0.4em] font-bold">Protocol_Access: Required</span>
+                  <span className="text-[7px] sm:text-[10px] text-white/40 uppercase tracking-[0.3em] sm:tracking-[0.4em] font-bold">Protocol_Access: Required</span>
                 </div>
-                <h2 className="text-white text-4xl font-grotesk font-black tracking-tighter uppercase mb-4">XENOR_PROTOCOL</h2>
-                <p className="text-white/30 text-[9px] tracking-[0.3em] uppercase">System_Gate_Encryption_Layer_01</p>
+                <h2 className="text-white text-xl sm:text-4xl font-grotesk font-black tracking-tighter uppercase mb-2 sm:mb-4">XENOR_PROTOCOL</h2>
+                <p className="text-white/30 text-[7px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.3em] uppercase">System_Gate_Encryption_Layer_01</p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                 <div className="relative group">
                   <input
                     autoFocus
@@ -108,14 +108,14 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="ENTER_IDENTIFIER_"
-                    className="w-full bg-white/[0.03] border border-white/10 px-8 py-5 text-center text-white placeholder:text-white/10 focus:outline-none focus:border-white/30 transition-all rounded-none tracking-[0.2em] font-bold text-sm"
+                    className="w-full bg-white/[0.03] border border-white/10 px-4 sm:px-8 py-3 sm:py-5 text-center text-white placeholder:text-white/10 focus:outline-none focus:border-white/30 transition-all rounded-none tracking-[0.2em] font-bold text-[10px] sm:text-sm"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={!name.trim()}
-                  className="w-full py-4 border border-white/20 text-white font-black tracking-[0.4em] text-[10px] uppercase hover:bg-white hover:text-black transition-all disabled:opacity-20"
+                  className="w-full py-2.5 sm:py-4 border border-white/20 text-white font-black tracking-[0.3em] sm:tracking-[0.4em] text-[8px] sm:text-[10px] uppercase hover:bg-white hover:text-black transition-all disabled:opacity-20"
                 >
                   INITIALIZE_SESSION
                 </button>
@@ -130,22 +130,22 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="relative z-10 w-full max-w-2xl p-20 glass border border-white/5 overflow-hidden"
+            className="relative z-10 w-[90%] max-w-xl p-8 sm:p-20 glass border border-white/5 overflow-hidden mx-auto"
           >
             {/* HUD Corner Decor */}
-            <div className="absolute top-0 left-0 w-16 h-16 border-t-[3px] border-l-[3px] border-accent z-20" />
-            <div className="absolute bottom-0 right-0 w-16 h-16 border-b-[3px] border-r-[3px] border-accent z-20" />
+            <div className="absolute top-0 left-0 w-8 h-8 sm:w-16 sm:h-16 border-t-[2px] sm:border-t-[3px] border-l-[2px] sm:border-l-[3px] border-accent z-20" />
+            <div className="absolute bottom-0 right-0 w-8 h-8 sm:w-16 sm:h-16 border-b-[2px] sm:border-b-[3px] border-r-[2px] sm:border-r-[3px] border-accent z-20" />
 
             <div className="relative z-10">
-              <div className="mb-20 flex flex-col items-center text-center">
-                <div className="text-[11px] text-accent uppercase tracking-[0.8em] font-black mb-8">Decrypting_Matrix_State</div>
+              <div className="mb-8 sm:mb-20 flex flex-col items-center text-center">
+                <div className="text-[8px] sm:text-[11px] text-accent uppercase tracking-[0.3em] sm:tracking-[0.8em] font-black mb-4 sm:mb-8">Decrypting_Matrix_State</div>
                 
                 {/* Segmented Technical Bar */}
-                <div className="flex gap-1.5 h-12 items-center">
+                <div className="flex gap-0.5 sm:gap-1.5 h-8 sm:h-12 items-center">
                   {[...Array(20)].map((_, i) => (
                     <motion.div
                       key={i}
-                      className={`w-2 h-8 skew-x-12 transition-all duration-300 ${
+                      className={`w-1 sm:w-2 h-4 sm:h-8 skew-x-12 transition-all duration-300 ${
                         (progress / 5) > i ? 'bg-accent shadow-[0_0_15px_rgba(124,255,0,0.5)]' : 'bg-white/5'
                       }`}
                     />
@@ -153,9 +153,9 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
                 </div>
               </div>
 
-              <div className="space-y-8 max-w-xl mx-auto">
+              <div className="space-y-4 sm:space-y-8 max-w-xl mx-auto">
                 {/* Progress Bar */}
-                <div className="w-full h-[2px] bg-white/5 border border-white/10 relative">
+                <div className="w-full h-[1px] sm:h-[2px] bg-white/5 border border-white/10 relative">
                   <motion.div
                     className="h-full bg-white shadow-[0_0_20px_rgba(255,255,255,0.5)]"
                     style={{ width: `${progress}%` }}
@@ -163,18 +163,18 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
                 </div>
 
                 {/* Terminal Logs */}
-                <div className="h-48 overflow-hidden text-[9px] text-white/30 uppercase tracking-[0.2em] space-y-3 pt-6 border-t border-white/5">
+                <div className="h-32 sm:h-48 overflow-hidden text-[7px] sm:text-[9px] text-white/30 uppercase tracking-[0.1em] sm:tracking-[0.2em] space-y-2 sm:space-y-3 pt-3 sm:pt-6 border-t border-white/5">
                   <AnimatePresence mode="popLayout">
-                    {logs.slice(-5).map((log, i) => (
+                    {logs.slice(-4).map((log, i) => (
                       <motion.div
                         key={log}
                         initial={{ opacity: 0, x: -5 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        className="flex items-center gap-6"
+                        className="flex items-center gap-3 sm:gap-6"
                       >
                         <span className="text-accent font-bold">[{new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })}]</span>
-                        <span>{log}</span>
+                        <span className="truncate">{log}</span>
                       </motion.div>
                     ))}
                   </AnimatePresence>

@@ -1,4 +1,4 @@
-'use client';
+// Marquee is now a Server Component for better performance
 
 const marqueeContent = [
   '$XNR', '◈', 'DETERMINISTIC EXECUTION', '●', 'SIMULATION-LED VALIDATION', '◈',
@@ -10,8 +10,9 @@ export default function Marquee() {
   return (
     <section className="w-full h-12 bg-bg-surface border-y border-bg-border overflow-hidden flex items-center">
       <div className="flex animate-marquee whitespace-nowrap">
-        {[...Array(4)].map((_, i) => (
-          <div key={i} className="flex items-center gap-10 px-5">
+        {/* Reduced duplication for performance, especially on mobile */}
+        {[...Array(3)].map((_, i) => (
+          <div key={i} className={`flex items-center gap-10 px-5 ${i > 1 ? 'hidden md:flex' : 'flex'}`}>
             {marqueeContent.map((item, idx) => (
               <span 
                 key={`${i}-${idx}`} 

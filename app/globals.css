@@ -4,8 +4,8 @@
   --color-bg-base: #050508;
   --color-bg-surface: #0d0d12;
   --color-bg-border: #1a1a2e;
-  --color-accent: #7CFF00;
-  --color-accent-orange: #39FF14;
+  --color-accent: #FFD700;
+  --color-accent-orange: #FFB800;
   --color-text: #eef0f8;
   --color-muted: #5a6580;
   --color-warn: #f5a623;
@@ -26,7 +26,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-osx-font-smoothing: grayscale;
     background-image:
-      radial-gradient(circle at 50% -20%, rgba(136, 255, 0, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% -20%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
       radial-gradient(circle at 0% 100%, rgba(255, 77, 0, 0.03) 0%, transparent 40%),
       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -35,6 +35,17 @@
     background-position: center;
     background-attachment: fixed;
     min-height: 100vh;
+  }
+
+  /* Optimize performance for mobile: disable fixed background */
+  @media (max-width: 768px) {
+    body {
+      background-attachment: scroll;
+      background-image:
+        radial-gradient(circle at 50% -20%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+        linear-gradient(rgba(10, 10, 12, 0.8), rgba(10, 10, 12, 0.8));
+      background-size: cover, cover;
+    }
   }
 
   /* Custom Scrollbar */
@@ -56,12 +67,20 @@
   }
 }
 
-/* Glassmorphism */
+/* Glassmorphism - Optimized for Mobile */
 .glass {
   background: var(--color-bg-surface);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--color-bg-border);
+}
+
+@media (max-width: 768px) {
+  .glass {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(13, 13, 18, 0.95);
+  }
 }
 
 .glass-light {
@@ -184,10 +203,17 @@
 .scanline {
   width: 100%;
   height: 100px;
-  background: linear-gradient(to bottom, transparent, rgba(136, 255, 0, 0.05), transparent);
+  background: linear-gradient(to bottom, transparent, rgba(255, 215, 0, 0.05), transparent);
   opacity: 0.5;
   pointer-events: none;
   animation: scanline 8s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .scanline {
+    display: none;
+    animation: none;
+  }
 }
 
 @keyframes noise {
@@ -244,6 +270,13 @@
   animation: noise 0.5s steps(1) infinite;
 }
 
+@media (max-width: 768px) {
+  .noise-overlay {
+    display: none;
+    animation: none;
+  }
+}
+
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
@@ -270,4 +303,27 @@
 
 .animate-spin-reverse-slow {
   animation: spin-reverse-slow 20s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.33%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .animate-spin-slow, .animate-spin-reverse-slow {
+    animation: none;
+  }
+  .animate-marquee {
+    animation-duration: 25s; /* Slightly faster on small screens for better feel */
+  }
 }
