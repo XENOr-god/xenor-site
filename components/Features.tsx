@@ -5,8 +5,8 @@ import { FEATURES } from '@/lib/constants';
 import SectionLabel from './ui/SectionLabel';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] } },
 };
 
 const stagger = {
@@ -15,10 +15,10 @@ const stagger = {
 
 export default function Features() {
   return (
-    <section id="features" className="relative py-24 md:py-40 px-6 md:px-10 bg-[#050508] overflow-hidden">
+    <section id="features" className="relative py-24 md:py-40 px-6 md:px-10 bg-transparent overflow-hidden scroll-mt-24">
       {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent/5 blur-[160px] rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-full grid-bg opacity-5 -z-10" />
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-accent/[0.02] blur-[120px] -z-10" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
@@ -27,80 +27,130 @@ export default function Features() {
           viewport={{ once: true, amount: 0.1 }}
           variants={stagger}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end mb-24">
-            <div className="lg:col-span-8">
-              <motion.div variants={fadeUp} className="mb-8 flex items-center gap-4">
-                <SectionLabel number="02" text="System Architecture" />
-                <div className="h-[1px] w-24 bg-accent/30" />
-              </motion.div>
-              <motion.h2 
-                variants={fadeUp}
-                className="text-4xl md:text-8xl font-black font-grotesk tracking-tighter uppercase italic leading-[0.8] text-white"
-              >
-                Built for <br />
-                <span className="text-accent not-italic">Deterministic</span><br />
-                Resilience.
-              </motion.h2>
+          {/* Header Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch mb-24">
+            {/* Title Block (Cols 1-7) */}
+            <div className="lg:col-span-7 border border-white/10 bg-black/40 backdrop-blur-3xl p-10 min-h-[320px] relative overflow-hidden group flex flex-col justify-center">
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-accent/40 group-hover:border-accent transition-all" />
+              <div className="absolute inset-0 grid-bg opacity-5 pointer-events-none" />
+
+              <div className="relative z-10">
+                <motion.div variants={fadeUp} className="mb-10 flex items-center gap-4">
+                  <SectionLabel number="02" text="System Architecture" />
+                  <div className="h-[1px] flex-grow bg-white/5" />
+                  <span className="font-mono text-[7px] text-white/20 uppercase tracking-widest">[ UNIT_ID: XNR-ARCH-02 ]</span>
+                </motion.div>
+
+                <motion.h2
+                  variants={fadeUp}
+                  className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-white mb-10"
+                >
+                  BUILT<br />
+                  <span className="text-accent not-italic drop-shadow-[0_0_30px_rgba(0,229,255,0.2)]">DETERMINISM</span>
+                </motion.h2>
+
+                <motion.div variants={fadeUp} className="space-y-4">
+                  <div className="flex gap-4 items-start">
+                    <div className="w-1 h-12 bg-accent/40 group-hover:bg-accent transition-colors" />
+                    <p className="text-white/60 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] leading-relaxed max-w-sm">
+                      Verified by Rust substrate. Zero-failure execution layer. Every state transition is cryptographically validated.
+                    </p>
+                  </div>
+                </motion.div>
+              </div>
+
+              <div className="absolute bottom-4 left-10 font-mono text-[7px] text-white/10 uppercase tracking-[0.5em] flex gap-12">
+                <span>BITRATE: 1.2 GB/S</span>
+                <span>STATE_INTEGRITY: 100%</span>
+              </div>
             </div>
-            <div className="lg:col-span-4 pb-4">
-              <motion.div variants={fadeUp} className="border-l border-accent/30 pl-8">
-                <p className="text-muted text-sm md:text-base font-mono uppercase tracking-tight leading-relaxed max-w-xs">
-                  <span className="text-accent">// SPECIFICATION_ID: XNR-092</span><br />
-                  Verified by Rust substrate. Zero-failure execution layer.
-                </p>
-              </motion.div>
+
+            {/* GIF Inspection Portal (Cols 8-12) */}
+            <div className="lg:col-span-5 relative group">
+              <div className="relative aspect-square w-full border border-accent/20 bg-black/60 overflow-hidden">
+                <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 grid-bg opacity-10" />
+
+                {/* HUD Highlights */}
+                <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-accent" />
+                <div className="absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 border-accent" />
+                <div className="absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 border-accent" />
+                <div className="absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 border-accent" />
+
+                <img
+                  src="/assets/images/gif/02-System-Architecture.gif"
+                  alt="System Architecture"
+                  className="w-full h-full object-cover mix-blend-screen opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000 brightness-125"
+                />
+
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[8px] text-accent font-black uppercase tracking-[0.5em] bg-black/80 px-3 py-1 border border-accent/20">
+                  ARCH_VISUAL_02
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Architecture Units Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
             {FEATURES.map((feature, i) => (
               <motion.div
                 key={feature.id}
                 variants={fadeUp}
-                className="group relative bg-white/[0.01] border border-white/5 p-8 md:p-10 rounded-sm hover:bg-white/[0.03] hover:border-accent/40 transition-all duration-700 overflow-hidden cursor-pointer"
+                className="relative group h-full"
               >
-                {/* Advanced HUD Corner Decor */}
-                <div className="absolute top-0 left-0 w-6 h-6 border-l-2 border-t-2 border-white/5 group-hover:border-accent transition-all duration-500" />
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-r-2 border-b-2 border-white/5 group-hover:border-accent transition-all duration-500" />
-                
-                <div className="relative z-10">
-                  <div className="mb-10 flex items-center justify-between">
-                    <div className="font-mono text-3xl font-black text-white/5 group-hover:text-accent/20 transition-colors duration-500">
-                      0{i + 1}
+                <div className="h-full bg-black/40 border border-white/5 p-8 relative overflow-hidden backdrop-blur-3xl transition-all duration-500 group-hover:border-accent/30 flex flex-col">
+                  {/* Unit Header */}
+                  <div className="flex items-center justify-between mb-10 pb-4 border-b border-white/5">
+                    <div className="w-12 h-12 border border-white/10 bg-white/5 flex items-center justify-center group-hover:border-accent/40 transition-colors overflow-hidden relative">
+                      <span className="text-2xl grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all relative z-10">{feature.icon}</span>
+                      <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
-                    <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-accent/50 group-hover:bg-accent/5 transition-all">
-                      <div className="w-1.5 h-1.5 bg-accent rounded-full group-hover:animate-ping" />
+                    <div className="text-right">
+                      <span className="block font-mono text-[8px] text-accent font-black tracking-[0.4em] mb-1">[ UNIT_{i + 1} ]</span>
+                      <span className="block font-mono text-[6px] text-white/20 uppercase tracking-widest">FUNC_SYNC_0{i + 1}</span>
                     </div>
                   </div>
 
-                  <h3 className="text-2xl font-black font-grotesk text-white mb-5 uppercase tracking-tight group-hover:text-accent transition-colors leading-none">
-                    {feature.title}
-                  </h3>
-                  
-                  <p className="text-muted text-xs leading-relaxed mb-8 font-mono tracking-tight opacity-70 group-hover:opacity-100 transition-opacity">
-                    {feature.description}
-                  </p>
+                  <div className="space-y-4 mb-10 flex-grow">
+                    <h3 className="text-xl font-black text-white uppercase italic tracking-tight leading-none group-hover:text-accent transition-colors">
+                      {feature.title}
+                    </h3>
+                    <div className="w-8 h-[2px] bg-accent/40 group-hover:w-full transition-all duration-700" />
+                    <p className="text-[10px] md:text-xs text-white/60 leading-relaxed group-hover:text-white transition-colors font-mono uppercase tracking-tight">
+                      {feature.description}
+                    </p>
+                  </div>
 
-                  <div className="pt-6 border-t border-white/5 flex flex-col gap-4">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[9px] text-accent/60 uppercase tracking-widest">{feature.label}</span>
-                      <span className="font-mono text-[8px] text-muted-foreground uppercase opacity-0 group-hover:opacity-100 transition-opacity">Module_Ready</span>
+                  {/* Telemetry Footer */}
+                  <div className="mt-auto pt-6 border-t border-white/5 space-y-4">
+                    <div className="flex justify-between items-center font-mono text-[7px] text-white/30 uppercase tracking-widest">
+                      <span>Sync_Rate</span>
+                      <span className="text-accent group-hover:animate-pulse">99.8%</span>
                     </div>
-                    {/* Visual Telemetry Bar */}
-                    <div className="flex gap-0.5 h-[2px]">
+
+                    <div className="flex gap-0.5 h-[1.5px]">
                       {[...Array(12)].map((_, idx) => (
-                        <div 
-                          key={idx} 
-                          className={`flex-1 transition-all duration-500 ${idx < 4 ? 'bg-accent/40 group-hover:bg-accent' : 'bg-white/5'}`}
+                        <div
+                          key={idx}
+                          className={`flex-1 transition-all duration-500 ${idx < 6 ? 'bg-accent/40 group-hover:bg-accent' : 'bg-white/5'}`}
                           style={{ transitionDelay: `${idx * 50}ms` }}
                         />
                       ))}
                     </div>
-                  </div>
-                </div>
 
-                {/* Animated Distortion Overlay */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--x)_var(--y),rgba(0,229,255,0.08)_0%,transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                    <div className="flex justify-between items-center">
+                      <span className="font-mono text-[7px] text-accent/60 uppercase font-black">{feature.label}</span>
+                      <div className="flex gap-1">
+                        {[1, 2, 3].map(bit => (
+                          <div key={bit} className="w-0.5 h-0.5 bg-accent/40 group-hover:bg-accent group-hover:animate-pulse" />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Scanline overlay */}
+                  <div className="absolute inset-0 bg-accent/[0.02] opacity-0 group-hover:opacity-100 animate-scanline pointer-events-none" />
+                </div>
               </motion.div>
             ))}
           </div>

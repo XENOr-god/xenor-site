@@ -5,8 +5,8 @@ import { XENOR } from '@/lib/constants';
 import SectionLabel from './ui/SectionLabel';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] } },
 };
 
 const stagger = {
@@ -15,146 +15,198 @@ const stagger = {
 
 export default function Tokenomics() {
   return (
-    <section id="tokenomics" className="relative py-24 md:py-40 px-6 md:px-10 bg-[#050508] overflow-hidden">
-      {/* Immersive Background Decorations */}
-      <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(0,229,255,0.03)_0%,transparent_50%)] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_80%,rgba(124,92,252,0.03)_0%,transparent_50%)] pointer-events-none" />
+    <section id="tokenomics" className="relative py-24 md:py-40 px-6 md:px-10 bg-transparent overflow-hidden scroll-mt-24">
+      {/* Background Decor */}
+      <div className="absolute top-0 left-0 w-full h-full grid-bg opacity-5 -z-10" />
+      <div className="absolute bottom-0 right-0 w-full h-1/2 bg-accent/[0.02] blur-[120px] -z-10" />
 
-      <div className="relative z-20 max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           variants={stagger}
-          className="flex flex-col items-center"
         >
-          <motion.div variants={fadeUp} className="mb-8 flex items-center gap-4">
-            <div className="w-12 h-[1px] bg-accent/20" />
-            <SectionLabel number="04" text="Token Economy" />
-            <div className="w-12 h-[1px] bg-accent/20" />
-          </motion.div>
+          {/* Header Section - Economic Terminal */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch mb-24">
+            {/* Title Block (Cols 1-7) */}
+            <div className="lg:col-span-7 border border-white/10 bg-black/40 backdrop-blur-3xl p-10 relative overflow-hidden group flex flex-col justify-center min-h-[360px]">
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-accent/40 group-hover:border-accent transition-all" />
+              <div className="absolute inset-0 grid-bg opacity-5 pointer-events-none" />
 
-          <motion.h2 
-            variants={fadeUp}
-            className="text-5xl md:text-8xl font-grotesk font-black tracking-tighter mb-6 text-center uppercase italic text-white"
-          >
-            System <span className="text-accent not-italic drop-shadow-[0_0_30px_rgba(0,229,255,0.3)]">Liquidity</span>
-          </motion.h2>
-
-          <motion.p
-            variants={fadeUp}
-            className="text-muted text-sm mb-20 text-center max-w-lg mx-auto uppercase tracking-[0.4em] font-mono"
-          >
-            Zero inflation. Zero reserves. Pure execution.
-          </motion.p>
-
-          {/* Main Dashboard Grid */}
-          <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4">
-            {/* Supply Card - Highlight */}
-            <motion.div
-              variants={fadeUp}
-              className="lg:col-span-8 p-6 md:p-12 border border-white/5 bg-white/[0.01] rounded-sm relative overflow-hidden group backdrop-blur-3xl"
-            >
               <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                  <div className="text-[10px] font-mono text-accent uppercase tracking-[0.5em] font-bold">Total Protocol Float</div>
-                </div>
-                <div className="text-[clamp(32px,8vw,90px)] font-black font-grotesk text-white mb-6 tracking-tighter leading-none italic">
-                  {XENOR.tokenomics.supply}
-                </div>
-                <div className="flex flex-wrap items-center gap-8">
-                  <div className="flex items-center gap-4 border border-white/10 px-4 py-2 rounded-sm bg-white/5">
-                    <div className="flex -space-x-2">
-                      {[1,2,3].map(i => <div key={i} className="w-5 h-5 rounded-full border border-bg-base bg-accent/40" />)}
+                <motion.div variants={fadeUp} className="mb-8 flex items-center gap-4">
+                  <SectionLabel number="04" text="Economic Substrate" />
+                  <div className="h-[1px] flex-grow bg-white/5" />
+                  <span className="font-mono text-[7px] text-white/20 uppercase tracking-widest">[ ECON_SYNC: NOMINAL ]</span>
+                </motion.div>
+
+                <motion.h2
+                  variants={fadeUp}
+                  className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-white mb-8"
+                >
+                  LIQUIDITY <br />
+                  <span className="text-accent not-italic drop-shadow-[0_0_30px_rgba(0,229,255,0.2)]">ARCHITECTURE</span>
+                </motion.h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                  <motion.div variants={fadeUp} className="space-y-4">
+                    <div className="flex gap-4 items-start">
+                      <div className="w-1 h-12 bg-accent/40 group-hover:bg-accent transition-colors" />
+                      <p className="text-white/60 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] leading-relaxed max-w-sm">
+                        Absolute transparency. Zero inflation. Zero hidden reserves. Maximum capital velocity for compute.
+                      </p>
                     </div>
-                    <span className="text-[9px] font-mono text-text/60 uppercase tracking-widest font-bold">Verified_Holders</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-muted uppercase tracking-[0.2em]">Verified by Rust Engine v1.0.4</span>
-                </div>
-              </div>
-              
-              {/* Decorative HUD Circle */}
-              <div className="absolute top-1/2 right-[-50px] -translate-y-1/2 opacity-5 pointer-events-none">
-                <div className="w-80 h-80 border-[20px] border-accent rounded-full border-dashed animate-spin-slow" />
-              </div>
-            </motion.div>
+                  </motion.div>
 
-            {/* Public Distribution Card */}
-            <motion.div
-              variants={fadeUp}
-              className="lg:col-span-4 p-8 md:p-12 border border-white/5 bg-white/[0.01] rounded-sm flex flex-col justify-center items-center text-center relative overflow-hidden backdrop-blur-3xl"
-            >
-              <div className="relative z-10">
-                <div className="text-7xl md:text-8xl font-black font-grotesk text-white mb-2 italic">100%</div>
-                <div className="text-[10px] font-mono text-accent uppercase tracking-[0.4em] font-bold">Public Launch</div>
-                <div className="mt-8 w-40 h-1 bg-white/5 rounded-full overflow-hidden mx-auto">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "100%" }}
-                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                    className="h-full bg-accent shadow-[0_0_10px_#00e5ff]"
-                  />
+                  <motion.div variants={fadeUp} className="p-4 border border-white/5 bg-white/[0.02] space-y-4">
+                    <div className="flex justify-between items-center font-mono text-[7px] text-white/30 uppercase">
+                      <span>Sync_Rate</span>
+                      <span className="text-accent">99.9%</span>
+                    </div>
+                    <div className="w-full h-[1px] bg-white/5 relative">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '99%' }}
+                        className="h-full bg-accent absolute top-0 left-0"
+                      />
+                    </div>
+                    <div className="flex justify-between items-center font-mono text-[7px] text-white/30 uppercase">
+                      <span>Block_Height</span>
+                      <span className="text-white/60 tracking-wider">#092,841</span>
+                    </div>
+                  </motion.div>
                 </div>
               </div>
-              <div className="absolute inset-0 bg-accent/[0.02] animate-scanline" />
-            </motion.div>
+
+              <div className="absolute bottom-4 left-10 font-mono text-[7px] text-white/10 uppercase tracking-[0.5em] flex gap-12">
+                <span>CANONICAL: {XENOR.tokenomics.supply}</span>
+                <span>FEE: 0.00%</span>
+              </div>
+            </div>
+
+            {/* GIF Inspection Portal (Cols 8-12) */}
+            <div className="lg:col-span-5 relative group">
+              <div className="relative aspect-square w-full border border-accent/20 bg-black/60 overflow-hidden">
+                <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 grid-bg opacity-10" />
+
+                {/* HUD Highlights */}
+                <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-accent" />
+                <div className="absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 border-accent" />
+                <div className="absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 border-accent" />
+                <div className="absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 border-accent" />
+
+                <img
+                  src="/assets/images/gif/04-Token-Economy.gif"
+                  alt="Token Economy"
+                  className="w-full h-full object-cover mix-blend-screen opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000 brightness-125"
+                />
+
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 font-mono text-[8px] text-accent font-black uppercase tracking-[0.5em] bg-black/80 px-3 py-1 border border-accent/20">
+                  ECON_VISUAL_04
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Secondary Stats Grid */}
-          <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          {/* Economic Parameters Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
             {[
-              { label: "Team Allocation", value: XENOR.tokenomics.teamAlloc, color: "text-muted" },
-              { label: "VC / Private Sale", value: XENOR.tokenomics.vcSale, color: "text-muted" },
-              { label: "Fair Launch", value: XENOR.tokenomics.fairLaunch, color: "text-accent" }
-            ].map((s, i) => (
-              <motion.div 
+              { label: 'Public Liquidity', value: XENOR.tokenomics.fairLaunch, desc: '100% fair launch. Distributed through market discovery.' },
+              { label: 'Supply Limit', value: XENOR.tokenomics.supply, desc: 'Fixed canonical float. No mint function. Immutable substrate.' },
+              { label: 'Protocol Fee', value: '0.00%', desc: 'Native fee-less execution for maximum compute interaction.' }
+            ].map((stat, i) => (
+              <motion.div
                 key={i}
                 variants={fadeUp}
-                className="p-8 border border-white/5 bg-white/[0.01] rounded-sm text-center group hover:border-accent/30 transition-all backdrop-blur-3xl"
+                className="bg-black/40 border border-white/5 p-8 relative overflow-hidden group hover:border-accent/30 transition-all duration-500"
               >
-                <div className="text-[9px] font-mono text-muted mb-3 uppercase tracking-[0.3em] font-bold group-hover:text-accent/60 transition-colors">{s.label}</div>
-                <div className={`text-3xl font-black font-grotesk ${s.color} italic tracking-tight`}>{s.value}</div>
+                <div className="absolute top-0 left-0 w-1 h-full bg-accent/10 group-hover:bg-accent/40 transition-colors" />
+                <div className="space-y-6 relative z-10">
+                  <div className="flex justify-between items-start">
+                    <span className="font-mono text-[8px] text-accent font-bold uppercase tracking-[0.4em]">PARA_0{i + 1}</span>
+                    <span className="font-mono text-[7px] text-white/20 uppercase tracking-widest">[ READ_OK ]</span>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="block font-mono text-[8px] text-white/40 uppercase tracking-widest">{stat.label}</span>
+                    <div className="text-3xl font-black text-white italic tracking-tighter group-hover:text-accent transition-colors">
+                      {stat.value}
+                    </div>
+                  </div>
+                  <p className="font-mono text-[9px] text-white/30 uppercase tracking-[0.2em] leading-relaxed italic">
+                    {stat.desc}
+                  </p>
+                </div>
+                {/* Scanline overlay */}
+                <div className="absolute inset-0 bg-accent/[0.02] opacity-0 group-hover:opacity-100 animate-scanline pointer-events-none" />
               </motion.div>
             ))}
           </div>
 
-          {/* Logic Breakdown */}
-          <motion.div 
-            variants={fadeUp}
-            className="w-full grid md:grid-cols-3 gap-10 p-8 md:p-12 border border-white/5 bg-white/[0.01] rounded-sm backdrop-blur-3xl"
-          >
-            {[
-              { title: "Fair Launch", desc: "No pre-mine. No insider whitelists. Complete parity.", icon: "◈" },
-              { title: "Zero Tax", desc: "0% Buy/Sell fees. Maximum capital velocity.", icon: "◈" },
-              { title: "Deflationary", desc: "Native burn mechanisms in core execution.", icon: "◈" }
-            ].map((item, i) => (
-              <div key={i} className="space-y-4 relative">
-                <div className="text-accent font-mono text-sm">{item.icon}</div>
-                <h4 className="font-black font-grotesk uppercase tracking-tight text-lg text-white">{item.title}</h4>
-                <p className="text-[11px] text-muted leading-relaxed font-mono uppercase tracking-tight">{item.desc}</p>
-                {i < 2 && <div className="hidden md:block absolute top-0 right-[-20px] bottom-0 w-[1px] bg-white/5" />}
+          {/* Allocation Matrix & Validation Block */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Allocation Matrix (Cols 1-5) */}
+            <div className="lg:col-span-5 bg-black/40 border border-white/5 p-8 relative overflow-hidden group">
+              <div className="absolute top-0 left-0 w-8 h-8 border-t border-l border-white/10 group-hover:border-accent/40 transition-all" />
+              <div className="space-y-8 relative z-10">
+                <div className="flex justify-between items-end">
+                  <span className="font-mono text-[9px] text-accent font-black uppercase tracking-[0.4em]">Allocation_Matrix</span>
+                  <span className="font-mono text-[7px] text-white/20 uppercase">Units: %</span>
+                </div>
+                <div className="space-y-6">
+                  {[
+                    { label: "Market Distribution", value: "100%", active: true },
+                    { label: "Team Reserve", value: "0%", active: false },
+                    { label: "VC Allocation", value: "0%", active: false }
+                  ].map((item, i) => (
+                    <div key={i} className="space-y-2">
+                      <div className="flex justify-between text-[8px] font-mono uppercase tracking-widest">
+                        <span className={item.active ? "text-white" : "text-white/30"}>{item.label}</span>
+                        <span className={item.active ? "text-accent" : "text-white/30"}>{item.value}</span>
+                      </div>
+                      <div className="w-full h-[1px] bg-white/5 relative">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: item.value }}
+                          className={`h-full absolute top-0 left-0 ${item.active ? "bg-accent" : "bg-white/10"}`}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
-          </motion.div>
-          {/* Disclaimer / System Info */}
-          <motion.div 
-            variants={fadeUp}
-            className="w-full mt-12 p-6 md:p-10 border border-white/5 bg-white/[0.01] rounded-sm text-center backdrop-blur-3xl"
-          >
-            <p className="text-muted text-[10px] md:text-xs leading-relaxed mb-6 uppercase tracking-[0.2em] max-w-2xl mx-auto font-mono opacity-60">
-              The {XENOR.ticker} token is a public utility surface for protocol interaction. 
-              This is not a financial instrument. Performance is tied to system execution metrics.
-            </p>
-            <a 
-              href={XENOR.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block font-mono text-[10px] uppercase tracking-[0.4em] text-accent border border-accent/20 px-8 py-3 rounded-sm hover:bg-accent hover:text-black hover:glow-hover transition-all font-black"
-            >
-              SYSTEM_DOCUMENTATION_&_AUDIT ↗
-            </a>
-          </motion.div>
+            </div>
+
+            {/* Public Audit Gateway (Cols 6-12) */}
+            <div className="lg:col-span-7 bg-black/40 border border-white/5 p-8 relative overflow-hidden group flex flex-col justify-between">
+              <div className="absolute top-0 right-0 w-8 h-8 border-t border-r border-white/10 group-hover:border-accent/40 transition-all" />
+              <div className="space-y-6 relative z-10">
+                <div className="flex justify-between items-center">
+                  <span className="font-mono text-[9px] text-accent font-black uppercase tracking-[0.4em]">Audit_Log_Verification</span>
+                  <span className="font-mono text-[7px] text-white/40 uppercase animate-pulse">● LIVE_SYNC</span>
+                </div>
+                <p className="font-mono text-[10px] text-white/40 uppercase tracking-[0.2em] leading-relaxed italic max-w-xl">
+                  ◈ All economic parameters are hardcoded into the XENOr substrate. Public verification is established through canonical GitHub audit logs. ◈
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-end sm:items-center justify-between gap-6 pt-8 border-t border-white/5 relative z-10">
+                <div className="space-y-1">
+                  <span className="block font-mono text-[6px] text-white/20 uppercase tracking-widest">System_Version</span>
+                  <span className="block font-mono text-[9px] text-white/60 uppercase tracking-widest font-bold">READY_TO_SYNC_v1.0.4</span>
+                </div>
+                <a
+                  href={XENOR.links.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-3 bg-white text-black font-mono text-[9px] font-black uppercase tracking-[0.5em] hover:bg-accent transition-all hover:scale-105 active:scale-95"
+                >
+                  VERIFY_ON_GITHUB_↗
+                </a>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

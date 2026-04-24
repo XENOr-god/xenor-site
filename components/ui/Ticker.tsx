@@ -12,7 +12,7 @@ export default function Ticker({ items, reverse = false }: TickerProps) {
   const displayItems = [...items, ...items, ...items, ...items];
 
   return (
-    <div className="w-full bg-white/[0.03] border-y border-white/10 py-5 overflow-hidden flex whitespace-nowrap relative z-20">
+    <div className="w-full bg-black/40 border-y border-white/5 py-6 overflow-hidden flex whitespace-nowrap relative z-20">
       <motion.div
         animate={{
           x: reverse ? [0, -1000] : [-1000, 0],
@@ -21,21 +21,22 @@ export default function Ticker({ items, reverse = false }: TickerProps) {
           x: {
             repeat: Infinity,
             repeatType: "loop",
-            duration: 30,
+            duration: 35,
             ease: "linear",
           },
         }}
-        className="flex items-center gap-8 md:gap-16 px-8 md:px-16"
+        className="flex items-center gap-10 md:gap-20 px-10 md:px-20"
       >
         {displayItems.map((item, index) => (
-          <div key={index} className="flex items-center gap-8 md:gap-16">
-            <span className="font-mono text-[10px] md:text-xs text-text/40 uppercase tracking-[0.4em] font-bold">
+          <div key={index} className="flex items-center gap-10 md:gap-20">
+            <span className="font-mono text-[9px] md:text-[10px] text-white/30 uppercase tracking-[0.5em] font-bold italic">
               {item}
             </span>
-            <div className="w-1.5 h-1.5 rotate-45 border border-accent/40 shadow-[0_0_8px_rgba(0,229,255,0.2)]" />
+            <div className="w-[1px] h-3 bg-white/10" />
           </div>
         ))}
       </motion.div>
     </div>
   );
 }
+

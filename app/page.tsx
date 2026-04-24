@@ -17,10 +17,7 @@ import EntryGate from '@/components/EntryGate';
 
 export default function Home() {
   const [isEntryComplete, setIsEntryComplete] = useState(false);
-  const [userName, setUserName] = useState('');
-
-  const handleEntryComplete = (name: string) => {
-    setUserName(name);
+  const handleEntryComplete = () => {
     setIsEntryComplete(true);
   };
 
@@ -38,7 +35,7 @@ export default function Home() {
           >
             <Navbar />
             <main className="relative">
-              <Hero userName={userName} />
+              <Hero />
               <Ticker items={["BUILT IN RUST", "SOLANA NATIVE", "XENOR_CORE_ACTIVE", "DETERMINISTIC_EXECUTION"]} />
               <About />
               <Ticker items={["PROTOCOL_LAYER_01", "CORE_ENGINE_STABLE", "VERIFIED_COMPUTATION", "XENOR_SIM_ACTIVE"]} reverse />

@@ -11,8 +11,8 @@ const config: Config = {
       'bg-base': '#050508',
       'bg-surface': '#0d0d12',
       'bg-border': '#1a1a2e',
-      'accent': '#00e5ff',
-      'accent2': '#7c5cfc',
+      'accent': '#7CFF00',
+      'accent2': '#39FF14',
       'text': '#eef0f8',
       'muted': '#5a6580',
       'warn': '#f5a623',
@@ -24,8 +24,8 @@ const config: Config = {
       white: '#ffffff',
     },
     fontFamily: {
-      'grotesk': ['var(--font-space-grotesk)', 'system-ui', 'sans-serif'],
-      'mono': ['var(--font-space-mono)', 'monospace'],
+      'grotesk': ['var(--font-grotesk)', 'system-ui', 'sans-serif'],
+      'mono': ['var(--font-mono)', 'monospace'],
     },
     letterSpacing: {
       'widest': '0.2em',
