@@ -15,10 +15,10 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'XENØr Protocol | Deterministic Infrastructure',
+  title: 'XENØr Protocol',
   description: 'Deterministic infrastructure for verifiable on-chain execution on Solana.',
   icons: {
-    icon: '/assets/images/xenor-icon.png',
+    icon: '/assets/images/xenor-gold.png',
   },
 };
 
@@ -39,7 +39,7 @@ export default function RootLayout({
           {/* Performant Background for Mobile / Static Layer for Desktop */}
           <div className="absolute inset-0 bg-bg-base md:bg-transparent" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80" />
-          
+
           {/* Subtle Mobile Grid to keep the aesthetic without the heavy GIF */}
           <div className="absolute inset-0 grid-bg opacity-[0.03] md:hidden" />
         </div>

@@ -1,9 +1,15 @@
+'use client';
+
+import React, { useState } from 'react';
 import SectionLabel from './ui/SectionLabel';
 import ScrollReveal from './ui/ScrollReveal';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Info } from 'lucide-react';
 
 export default function About() {
+  const [showPhilosophy, setShowPhilosophy] = useState(false);
   return (
-    <section id="about" className="relative py-16 md:py-32 px-6 md:px-10 bg-transparent overflow-hidden scroll-mt-24">
+    <section id="about" className="relative py-16 md:py-32 px-6 md:px-10 bg-transparent overflow-hidden scroll-mt-[-30px]">
       {/* Immersive Background Decorations - Simplified for mobile */}
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.02)_0%,transparent_50%)] pointer-events-none hidden md:block" />
 
@@ -71,21 +77,51 @@ export default function About() {
                 <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none" />
 
                 {/* Central Core Content */}
-                <div className="relative z-10 w-full h-full p-2 flex items-center justify-center overflow-hidden">
+                <div
+                  className="relative z-10 w-full h-full p-2 flex items-center justify-center overflow-hidden cursor-help group/visual"
+                  onMouseEnter={() => setShowPhilosophy(true)}
+                  onMouseLeave={() => setShowPhilosophy(false)}
+                  onClick={() => setShowPhilosophy(!showPhilosophy)}
+                >
                   {/* Active Scanline Over Visual - Disabled on mobile via .scanline in CSS */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent h-1/2 w-full animate-scanline pointer-events-none z-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent h-1/2 w-full animate-scanline pointer-events-none z-0 opacity-0 group-hover/visual:opacity-100 transition-opacity" />
 
                   <img
                     src="/assets/images/gif/01-Protocol-Infrastructure.gif"
                     alt="Protocol Infrastructure"
                     loading="lazy"
-                    className="w-full h-full object-cover mix-blend-screen opacity-90 group-hover:opacity-100 group-hover:scale-110 group-hover:brightness-125 transition-all duration-700 relative z-10"
+                    className={`w-full h-full object-cover mix-blend-screen transition-all duration-700 relative z-10 [mask-image:radial-gradient(circle_at_center,black_30%,transparent_90%)] ${showPhilosophy ? 'opacity-20 scale-95 blur-md' : 'opacity-90 group-hover/visual:opacity-100 group-hover/visual:scale-110 group-hover/visual:brightness-125'}`}
                   />
 
+                  {/* Philosophical Overlay */}
+                  <AnimatePresence>
+                    {showPhilosophy && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 text-center"
+                      >
+                        <div className="mb-4">
+                          <Info className="w-5 h-5 text-accent animate-pulse" />
+                        </div>
+                        <h4 className="font-mono text-[6px] md:text-[7px] text-accent font-bold tracking-[0.2em] md:tracking-[0.5em] uppercase mb-4">
+                          [ INFRASTRUCTURE_PHILOSOPHY ]
+                        </h4>
+                        <p className="font-mono text-[6px] md:text-[8px] text-white/80 leading-relaxed uppercase tracking-widest">
+                          "XENØr Protocol Infrastructure: The digital substrate of reality. A deterministic mesh where every bit is a testament to unyielding order."
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
                   {/* Internal HUD Detail */}
-                  <div className="absolute top-6 left-6 font-mono text-[8px] text-accent font-bold tracking-[0.2em] opacity-40 group-hover:opacity-100 transition-opacity uppercase">
+                  <motion.div 
+                    animate={{ opacity: showPhilosophy ? 0 : 1 }}
+                    className="absolute top-6 left-6 font-mono text-[7px] text-accent font-bold tracking-[0.4em] opacity-40 group-hover/visual:opacity-100 transition-opacity uppercase border-l border-accent/30 pl-3"
+                  >
                     [ VISUAL_CORE_01 ]
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </ScrollReveal>

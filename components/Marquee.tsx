@@ -1,9 +1,26 @@
-// Marquee is now a Server Component for better performance
+import { Diamond, Circle } from 'lucide-react';
 
 const marqueeContent = [
-  '$XNR', '◈', 'DETERMINISTIC EXECUTION', '●', 'SIMULATION-LED VALIDATION', '◈',
-  'VERIFIABLE INCENTIVE FLOW', '●', 'BUILT IN RUST', '◈', 'SOLANA NATIVE', '●',
-  'XENOR-CORE', '◈', 'XENOR-SIM', '●', 'XENOR-ENGINE', '◈', 'XENOR-SITE', '●'
+  { type: 'text', val: '$XNR' },
+  { type: 'icon', val: Diamond },
+  { type: 'text', val: 'DETERMINISTIC EXECUTION' },
+  { type: 'icon', val: Circle },
+  { type: 'text', val: 'SIMULATION-LED VALIDATION' },
+  { type: 'icon', val: Diamond },
+  { type: 'text', val: 'VERIFIABLE INCENTIVE FLOW' },
+  { type: 'icon', val: Circle },
+  { type: 'text', val: 'BUILT IN RUST' },
+  { type: 'icon', val: Diamond },
+  { type: 'text', val: 'SOLANA NATIVE' },
+  { type: 'icon', val: Circle },
+  { type: 'text', val: 'XENOR-CORE' },
+  { type: 'icon', val: Diamond },
+  { type: 'text', val: 'XENOR-SIM' },
+  { type: 'icon', val: Circle },
+  { type: 'text', val: 'XENOR-ENGINE' },
+  { type: 'icon', val: Diamond },
+  { type: 'text', val: 'XENOR-SITE' },
+  { type: 'icon', val: Circle }
 ];
 
 export default function Marquee() {
@@ -14,14 +31,19 @@ export default function Marquee() {
         {[...Array(3)].map((_, i) => (
           <div key={i} className={`flex items-center gap-10 px-5 ${i > 1 ? 'hidden md:flex' : 'flex'}`}>
             {marqueeContent.map((item, idx) => (
-              <span 
-                key={`${i}-${idx}`} 
-                className={`font-mono text-[12px] tracking-[0.15em] ${
-                  ['◈', '●'].includes(item) ? 'text-accent' : 'text-muted'
-                }`}
-              >
-                {item}
-              </span>
+              item.type === 'text' ? (
+                <span 
+                  key={`${i}-${idx}`} 
+                  className="font-mono text-[11px] tracking-[0.2em] text-muted font-bold"
+                >
+                  {item.val as string}
+                </span>
+              ) : (
+                <div key={`${i}-${idx}`} className="text-accent">
+                  {/* @ts-ignore */}
+                  <item.val size={8} strokeWidth={3} fill="currentColor" />
+                </div>
+              )
             ))}
           </div>
         ))}

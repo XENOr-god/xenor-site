@@ -1,10 +1,16 @@
+'use client';
+
+import React, { useState } from 'react';
 import { HOW_TO_BUY } from '@/lib/constants';
 import SectionLabel from './ui/SectionLabel';
 import ScrollReveal from './ui/ScrollReveal';
+import { ArrowRight, Info } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function HowToBuy() {
+  const [showPhilosophy, setShowPhilosophy] = useState(false);
   return (
-    <section id="how-to-buy" className="relative py-32 md:py-56 px-6 overflow-hidden border-t border-white/5 scroll-mt-24">
+    <section id="how-to-buy" className="relative py-20 md:py-40 px-6 overflow-hidden border-t border-white/5 scroll-mt-[-25px]">
       {/* Background Infrastructure */}
       <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none" />
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent/5 blur-[150px] rounded-full pointer-events-none hidden md:block" />
@@ -14,7 +20,7 @@ export default function HowToBuy() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header Section: Industrial Layout with Featured Visual */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-32 border-b border-white/5 pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 mb-16 md:mb-24 border-b border-white/5 pb-16">
           {/* Pipeline Visual on Left */}
           <div className="lg:col-span-5 relative group order-2 lg:order-1">
             <ScrollReveal direction="right">
@@ -25,15 +31,53 @@ export default function HowToBuy() {
                 {/* Active Scanline - Handled by CSS in globals.css */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent h-1/2 w-full scanline pointer-events-none z-10" />
 
-                <img
-                  src="/assets/images/gif/03-Acquisition-Pipeline.gif"
-                  alt="Acquisition Pipeline"
-                  loading="lazy"
-                  className="w-full h-full object-cover mix-blend-screen opacity-90 group-hover:scale-105 transition-all duration-700 relative z-20 grayscale hover:grayscale-0"
-                />
+                <div
+                  className="absolute inset-0 bg-black/90 flex items-center justify-center cursor-help group/visual"
+                  onMouseEnter={() => setShowPhilosophy(true)}
+                  onMouseLeave={() => setShowPhilosophy(false)}
+                  onClick={() => setShowPhilosophy(!showPhilosophy)}
+                >
+                  <div className="relative w-[70%] aspect-square flex items-center justify-center">
+                    {/* Acquisition Brackets */}
+                    <div className="absolute -top-3 -left-3 w-6 h-6 border-t border-l border-accent/40 z-30" />
+                    <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b border-r border-accent/40 z-30" />
 
-                <div className="absolute top-4 left-4 font-mono text-[7px] text-accent font-bold uppercase tracking-[0.2em] z-30 opacity-40 group-hover:opacity-100 transition-opacity">
-                  [ PIPELINE_VISUAL_FEED ]
+                    <img
+                      src="/assets/images/gif/03-Acquisition-Pipeline.gif"
+                      alt="Acquisition Pipeline"
+                      loading="lazy"
+                      className={`w-full h-full object-contain mix-blend-screen transition-all duration-700 relative z-20 grayscale [mask-image:radial-gradient(circle_at_center,black_30%,transparent_90%)] ${showPhilosophy ? 'opacity-20 blur-md scale-95' : 'opacity-90 group-hover/visual:scale-110 group-hover/visual:grayscale-0'}`}
+                    />
+
+                    {/* Philosophical Overlay */}
+                    <AnimatePresence>
+                      {showPhilosophy && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.9 }}
+                          className="absolute inset-0 z-40 flex flex-col items-center justify-center p-4 text-center"
+                        >
+                          <div className="mb-3">
+                            <Info className="w-5 h-5 text-accent animate-pulse" />
+                          </div>
+                          <h4 className="font-mono text-[6px] md:text-[7px] text-accent font-bold tracking-[0.2em] md:tracking-[0.5em] uppercase mb-2">
+                            [ PIPELINE_PHILOSOPHY ]
+                          </h4>
+                          <p className="font-mono text-[6px] md:text-[8px] text-white/80 leading-relaxed uppercase tracking-widest">
+                            "The Acquisition Pipeline: A convergence of intent. Each step is a filtered gate, transitioning observers into active protocol participants."
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    <motion.div 
+                      animate={{ opacity: showPhilosophy ? 0 : 1 }}
+                      className="absolute top-2 left-2 font-mono text-[7px] text-accent font-bold uppercase tracking-[0.4em] z-30 border-l border-accent/30 pl-3"
+                    >
+                      [ PIPELINE_LIVE ]
+                    </motion.div>
+                  </div>
                 </div>
 
                 {/* Visual Frame Brackets */}
@@ -52,7 +96,7 @@ export default function HowToBuy() {
               </div>
             </ScrollReveal>
             <ScrollReveal delay={0.1}>
-              <h2 className="text-5xl md:text-7xl font-black font-grotesk tracking-tighter uppercase leading-[0.85] text-white">
+              <h2 className="text-3xl sm:text-5xl md:text-7xl font-black font-grotesk tracking-tighter uppercase leading-[0.85] text-white">
                 How to Acquire <br />
                 <span className="text-accent italic drop-shadow-[0_0_40px_rgba(124,255,0,0.3)]">$XNR</span>
               </h2>
@@ -117,7 +161,7 @@ export default function HowToBuy() {
                           className="w-full p-3 flex justify-between items-center bg-white/[0.02] border border-white/5 hover:border-accent/40 hover:bg-accent/5 transition-all group/link"
                         >
                           <span className="font-mono text-[8px] font-black uppercase tracking-widest text-white/40 group-hover/link:text-white">{link.label}</span>
-                          <span className="text-[10px] text-white/20 group-hover/link:text-accent group-hover/link:translate-x-0.5 transition-all">→</span>
+                          <ArrowRight size={10} className="text-white/20 group-hover:text-accent group-hover:translate-x-0.5 transition-all" />
                         </a>
                       ))}
                     </div>

@@ -1,38 +1,41 @@
 import Link from 'next/link';
 import { XENOR, NAVIGATION } from '@/lib/constants';
+import { Diamond } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-transparent pt-32 pb-16 overflow-hidden border-t border-white/5">
+    <footer className="relative bg-transparent pt-16 md:pt-32 pb-16 overflow-hidden border-t border-white/5">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full grid-bg opacity-5 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-full h-1/2 bg-accent/[0.01] blur-[120px] pointer-events-none hidden md:block" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
         {/* Navigation & System Info Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-32">
-          
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 mb-16 md:mb-32">
+
           {/* Brand & Manifesto Block */}
           <div className="lg:col-span-4 space-y-10">
             <div className="space-y-6">
               <div className="flex items-center">
-                <img 
-                  src="/assets/images/xenor-icon.png" 
-                  alt="XENØR LABS" 
+                <img
+                  src="/assets/images/xenor-silver.png"
+                  alt="XENØR LABS"
                   className="h-8 md:h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all"
                 />
               </div>
-              <p className="text-white/40 text-[11px] font-mono uppercase tracking-[0.2em] leading-relaxed italic max-w-sm">
-                ◈ Building the deterministic execution substrate for verifiable compute. No compromises. No overrides. ◈
+              <p className="text-white/40 text-[11px] font-mono uppercase tracking-[0.2em] leading-relaxed italic max-w-sm flex items-center gap-3">
+                <Diamond size={6} className="text-accent fill-accent flex-shrink-0" />
+                Building the deterministic execution substrate for verifiable compute. No compromises. No overrides.
+                <Diamond size={6} className="text-accent fill-accent flex-shrink-0" />
               </p>
             </div>
-            
+
             <div className="flex gap-4">
               {[
-                { 
-                  name: 'X', 
+                {
+                  name: 'X',
                   url: XENOR.links.twitter,
                   icon: (
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -40,8 +43,8 @@ export default function Footer() {
                     </svg>
                   )
                 },
-                { 
-                  name: 'Github', 
+                {
+                  name: 'Github',
                   url: XENOR.links.github,
                   icon: (
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -49,8 +52,8 @@ export default function Footer() {
                     </svg>
                   )
                 },
-                { 
-                  name: 'Telegram', 
+                {
+                  name: 'Telegram',
                   url: XENOR.links.telegram,
                   icon: (
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -80,8 +83,8 @@ export default function Footer() {
               <ul className="space-y-4">
                 {NAVIGATION.map((item) => (
                   <li key={item.name}>
-                    <Link 
-                      href={item.href} 
+                    <Link
+                      href={item.href}
                       className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/30 hover:text-white transition-all hover:translate-x-1 inline-block"
                     >
                       {item.name}
@@ -100,8 +103,8 @@ export default function Footer() {
                   { name: 'Security', url: '#security' }
                 ].map((item) => (
                   <li key={item.name}>
-                    <a 
-                      href={item.url} 
+                    <a
+                      href={item.url}
                       className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/30 hover:text-white transition-all hover:translate-x-1 inline-block"
                     >
                       {item.name}
@@ -148,7 +151,7 @@ export default function Footer() {
               EST_2025_DECENTRALIZED_INFRASTRUCTURE
             </div>
           </div>
-          
+
           <div className="flex items-center gap-8">
             <Link href="#" className="font-mono text-[9px] text-white/30 hover:text-white uppercase tracking-[0.4em] transition-all">Terms.sys</Link>
             <div className="w-[1px] h-3 bg-white/10" />
