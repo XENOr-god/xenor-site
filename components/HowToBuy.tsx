@@ -9,6 +9,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function HowToBuy() {
   const [showPhilosophy, setShowPhilosophy] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   return (
     <section id="how-to-buy" className="relative py-20 md:py-40 px-6 overflow-hidden border-t border-white/5 scroll-mt-[-25px]">
       {/* Background Infrastructure */}
@@ -28,8 +36,10 @@ export default function HowToBuy() {
                 <div className="absolute inset-0 bg-accent/5 blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <div className="absolute inset-0 grid-bg opacity-10" />
 
-                {/* Active Scanline - Handled by CSS in globals.css */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent h-1/2 w-full scanline pointer-events-none z-10" />
+                {/* Active Scanline - Disabled on mobile */}
+                {!isMobile && (
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent h-1/2 w-full scanline pointer-events-none z-10" />
+                )}
 
                 <div
                   className="absolute inset-0 bg-black/90 flex items-center justify-center cursor-help group/visual"
@@ -59,7 +69,7 @@ export default function HowToBuy() {
                           className="absolute inset-0 z-40 flex flex-col items-center justify-center p-4 text-center"
                         >
                           <div className="mb-3">
-                            <Info className="w-5 h-5 text-accent animate-pulse" />
+                            <Info className={`w-5 h-5 text-accent ${!isMobile ? 'animate-pulse' : ''}`} />
                           </div>
                           <h4 className="font-mono text-[6px] md:text-[7px] text-accent font-bold tracking-[0.2em] md:tracking-[0.5em] uppercase mb-2">
                             [ PIPELINE_PHILOSOPHY ]
@@ -108,7 +118,7 @@ export default function HowToBuy() {
             </ScrollReveal>
             <ScrollReveal delay={0.3}>
               <div className="inline-flex items-center gap-3 px-4 py-2 bg-accent/5 border border-accent/20 rounded-sm">
-                <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                <div className={`w-1.5 h-1.5 rounded-full bg-accent ${!isMobile ? 'animate-pulse' : ''}`} />
                 <span className="font-mono text-[8px] text-accent font-black uppercase tracking-widest">Pipeline_Status: Ready</span>
               </div>
             </ScrollReveal>
@@ -123,7 +133,9 @@ export default function HowToBuy() {
                 }`}>
 
                 {/* Decorative Scanline Animation on Hover - Optimized */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.03] to-transparent h-1/2 w-full -translate-y-full group-hover/card:animate-scanline pointer-events-none hidden md:block" />
+                {!isMobile && (
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.03] to-transparent h-1/2 w-full -translate-y-full group-hover/card:animate-scanline pointer-events-none hidden md:block" />
+                )}
 
                 {/* Step Metadata */}
                 <div className="flex justify-between items-start mb-16 relative z-10">

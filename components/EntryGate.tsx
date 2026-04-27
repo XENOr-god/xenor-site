@@ -41,7 +41,15 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
   const [glitching, setGlitching] = useState(false);
   const [focused, setFocused] = useState(false);
   const [tick, setTick] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const glitchTitle = useGlitchText('XENOR_PROTOCOL', glitching);
 
@@ -60,23 +68,27 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
 
   // Periodic glitch on title
   useEffect(() => {
+    if (isMobile) return;
     const g = setInterval(() => {
       setGlitching(true);
       setTimeout(() => setGlitching(false), 600);
     }, 4000);
     return () => clearInterval(g);
-  }, []);
+  }, [isMobile]);
 
   // Blinking tick counter for cursor / data streams
   useEffect(() => {
+    if (isMobile) return;
     const t = setInterval(() => setTick(p => p + 1), 80);
     return () => clearInterval(t);
-  }, []);
+  }, [isMobile]);
 
   // Hex-grid canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) return; // Skip canvas init on mobile
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     let animId: number;
@@ -187,15 +199,17 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(255,215,0,0.07)_0%,transparent_70%)] pointer-events-none" />
 
       {/* Scanline sweep */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(255,215,0,0.03) 50%, transparent 100%)',
-          height: '200%',
-        }}
-        animate={{ y: ['-50%', '0%'] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
-      />
+      {!isMobile && (
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to bottom, transparent 0%, rgba(255,215,0,0.03) 50%, transparent 100%)',
+            height: '200%',
+          }}
+          animate={{ y: ['-50%', '0%'] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+        />
+      )}
 
       {/* Data stream — left edge */}
       <div className="absolute left-4 top-0 bottom-0 flex flex-col items-center gap-0 pointer-events-none overflow-hidden w-6 hidden md:flex">
@@ -258,33 +272,37 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
             <div className="relative bg-black border border-white/10 overflow-hidden">
 
               {/* Top gold accent line */}
-              <motion.div
-                className="absolute top-0 left-0 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent"
-                animate={{ x: ['-100%', '200%'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'linear', repeatDelay: 2 }}
-                style={{ width: '60%' }}
-              />
+              {!isMobile && (
+                <motion.div
+                  className="absolute top-0 left-0 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent"
+                  animate={{ x: ['-100%', '200%'] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'linear', repeatDelay: 2 }}
+                  style={{ width: '60%' }}
+                />
+              )}
 
               {/* Corner brackets — animated */}
               <motion.div
                 className="absolute top-0 left-0 w-10 h-10 border-t-2 border-l-2 border-accent"
-                animate={{ opacity: [0.6, 1, 0.6] }}
+                animate={!isMobile ? { opacity: [0.6, 1, 0.6] } : {}}
                 transition={{ duration: 2, repeat: Infinity }}
               />
               <motion.div
                 className="absolute bottom-0 right-0 w-10 h-10 border-b-2 border-r-2 border-accent"
-                animate={{ opacity: [0.6, 1, 0.6] }}
+                animate={!isMobile ? { opacity: [0.6, 1, 0.6] } : {}}
                 transition={{ duration: 2, repeat: Infinity, delay: 1 }}
               />
               <div className="absolute top-0 right-0 w-5 h-5 border-t border-r border-white/15" />
               <div className="absolute bottom-0 left-0 w-5 h-5 border-b border-l border-white/15" />
 
               {/* Vertical scanning line inside panel */}
-              <motion.div
-                className="absolute top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-accent/20 to-transparent pointer-events-none"
-                animate={{ x: ['-10px', '460px'] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'linear', repeatDelay: 3 }}
-              />
+              {!isMobile && (
+                <motion.div
+                  className="absolute top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-accent/20 to-transparent pointer-events-none"
+                  animate={{ x: ['-10px', '460px'] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'linear', repeatDelay: 3 }}
+                />
+              )}
 
               <div className="px-8 py-10 sm:px-12 sm:py-14 text-center relative z-10">
 

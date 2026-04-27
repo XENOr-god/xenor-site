@@ -8,6 +8,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Security() {
   const [showPhilosophy, setShowPhilosophy] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   return (
     <section id="security" className="relative py-24 md:py-40 px-6 md:px-10 overflow-hidden bg-transparent scroll-mt-[-25px]">
       {/* Background Decor */}
@@ -65,7 +73,7 @@ export default function Security() {
                           className="absolute inset-0 z-40 flex flex-col items-center justify-center p-4 text-center"
                         >
                           <div className="mb-3">
-                            <Info className="w-5 h-5 text-warn animate-pulse" />
+                            <Info className={`w-5 h-5 text-warn ${!isMobile ? 'animate-pulse' : ''}`} />
                           </div>
                           <h4 className="font-mono text-[6px] md:text-[7px] text-warn font-bold tracking-[0.2em] md:tracking-[0.5em] uppercase mb-2">
                             [ SECURITY_PHILOSOPHY ]
@@ -232,7 +240,7 @@ export default function Security() {
 
                   {/* Icon + Title row */}
                   <div className="flex items-center gap-4 mb-5">
-                    <div className={`w-12 h-12 flex-shrink-0 rounded-full border-2 ${p.ringColor} ${p.ringBg} flex items-center justify-center transition-all group-hover:scale-110`}>
+                    <div className={`w-12 h-12 flex-shrink-0 rounded-full border-2 ${p.ringColor} ${p.ringBg} flex items-center justify-center transition-all ${!isMobile ? 'group-hover:scale-110' : ''}`}>
                       {p.icon}
                     </div>
                     <h3 className="text-sm font-black font-grotesk text-white group-hover:text-warn tracking-tight uppercase leading-tight transition-colors">
@@ -252,9 +260,7 @@ export default function Security() {
                       <span className={`font-black ${p.statusColor}`}>{p.status}</span>
                     </div>
                     <div className="flex gap-1">
-                      {[1, 2, 3].map(bit => (
-                        <div key={bit} className="w-1.5 h-1.5 bg-warn/15 group-hover:bg-warn/60 transition-colors" />
-                      ))}
+                      <span className={`w-1.5 h-1.5 bg-accent rounded-full ${!isMobile ? 'animate-pulse' : ''}`} />
                     </div>
                   </div>
                 </div>

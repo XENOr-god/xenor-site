@@ -8,6 +8,15 @@ import { Info } from 'lucide-react';
 
 export default function About() {
   const [showPhilosophy, setShowPhilosophy] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section id="about" className="relative py-16 md:py-32 px-6 md:px-10 bg-transparent overflow-hidden scroll-mt-[-30px]">
       {/* Immersive Background Decorations - Simplified for mobile */}
@@ -83,8 +92,10 @@ export default function About() {
                   onMouseLeave={() => setShowPhilosophy(false)}
                   onClick={() => setShowPhilosophy(!showPhilosophy)}
                 >
-                  {/* Active Scanline Over Visual - Disabled on mobile via .scanline in CSS */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent h-1/2 w-full animate-scanline pointer-events-none z-0 opacity-0 group-hover/visual:opacity-100 transition-opacity" />
+                  {/* Active Scanline Over Visual - Disabled on mobile */}
+                  {!isMobile && (
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent h-1/2 w-full animate-scanline pointer-events-none z-0 opacity-0 group-hover/visual:opacity-100 transition-opacity" />
+                  )}
 
                   <img
                     src="/assets/images/gif/01-Protocol-Infrastructure.gif"
@@ -103,7 +114,7 @@ export default function About() {
                         className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 text-center"
                       >
                         <div className="mb-4">
-                          <Info className="w-5 h-5 text-accent animate-pulse" />
+                          <Info className={`w-5 h-5 text-accent ${!isMobile ? 'animate-pulse' : ''}`} />
                         </div>
                         <h4 className="font-mono text-[6px] md:text-[7px] text-accent font-bold tracking-[0.2em] md:tracking-[0.5em] uppercase mb-4">
                           [ INFRASTRUCTURE_PHILOSOPHY ]
@@ -148,7 +159,7 @@ export default function About() {
 
                     <div className="space-y-6">
                       <div className="flex items-center gap-3">
-                        <span className="pulse-red !bg-accent group-hover:glow-accent" />
+                        <span className={`pulse-red !bg-accent ${!isMobile ? 'group-hover:glow-accent' : ''}`} />
                         <div className="font-mono text-[8px] text-white/30 tracking-[0.4em] uppercase">{mod.label}</div>
                       </div>
                       <div className="text-3xl font-black font-grotesk text-white tracking-tighter uppercase italic group-hover:text-accent transition-colors">

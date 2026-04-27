@@ -474,21 +474,52 @@
 }
 
 @media (max-width: 768px) {
-  .feature-card:hover .gif-viewport,
-  .feature-card:hover .glitch-artifact,
-  .feature-card:hover .target-bracket,
-  .feature-card:hover .stat-value,
-  .feature-card:hover .crosshair {
-    animation: none;
+  /* Disable all heavy animations */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-  .data-stream-line,
-  .scan-sweep,
+  
+  /* Reset specific heavy elements */
+  .scanline, .animate-scanline, .scan-sweep, .data-stream-line {
+    display: none !important;
+  }
+  
+  .glass, .backdrop-blur-md, .backdrop-blur-xl, .backdrop-blur-sm {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(10, 10, 10, 0.9) !important;
+  }
+  
+  .grid-bg {
+    background-image: none !important;
+    opacity: 0 !important;
+  }
+  
   .matrix-bg {
-    animation: none;
+    display: none !important;
   }
-  .holo-shimmer {
-    animation: none;
-    background: transparent;
+  
+  .pulse-red, .glow-accent, .glow-warn {
+    animation: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Simplify hero area */
+  .hero-canvas-container {
+    opacity: 0.5 !important;
+  }
+  
+  /* Disable hover effects that cause reflow/repaint */
+  .feature-card:hover, .glass:hover {
+    transform: none !important;
+  }
+  
+  .gif-viewport {
+    filter: none !important;
+    transform: none !important;
   }
 }
 

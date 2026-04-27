@@ -14,6 +14,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Tokenomics() {
   const [showPhilosophy, setShowPhilosophy] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   return (
     <section id="tokenomics" className="relative py-24 md:py-40 px-6 md:px-10 bg-transparent scroll-mt-[-25px]">
       {/* Background Decor */}
@@ -135,7 +143,7 @@ export default function Tokenomics() {
                           className="absolute inset-0 z-40 flex flex-col items-center justify-center p-4 text-center"
                         >
                           <div className="mb-3">
-                            <Info className="w-5 h-5 text-accent animate-pulse" />
+                            <Info className={`w-5 h-5 text-accent ${!isMobile ? 'animate-pulse' : ''}`} />
                           </div>
                           <h4 className="font-mono text-[6px] md:text-[7px] text-accent font-bold tracking-[0.2em] md:tracking-[0.5em] uppercase mb-2">
                             [ ECONOMIC_PHILOSOPHY ]
@@ -147,8 +155,10 @@ export default function Tokenomics() {
                       )}
                     </AnimatePresence>
 
-                    {/* Scanning Line localized to the GIF */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent h-1/2 w-full animate-scanline pointer-events-none z-20" />
+                    {/* Scanning Line localized to the GIF - Disabled on mobile */}
+                    {!isMobile && (
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent h-1/2 w-full animate-scanline pointer-events-none z-20" />
+                    )}
                   </div>
 
                   {/* HUD Labels */}
@@ -157,7 +167,7 @@ export default function Tokenomics() {
                     className="absolute top-8 left-8 space-y-4 z-20"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
+                      <span className={`w-1.5 h-1.5 bg-accent rounded-full ${!isMobile ? 'animate-pulse' : ''}`} />
                       <span className="font-mono text-[8px] text-accent font-black uppercase tracking-[0.4em]">ECON_VISUAL_04</span>
                     </div>
                   </motion.div>

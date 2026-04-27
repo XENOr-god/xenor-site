@@ -10,6 +10,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Features() {
   const [showPhilosophy, setShowPhilosophy] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   // Mapping icon names to Lucide components
   const IconMap: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
     Settings,
@@ -101,7 +109,9 @@ export default function Features() {
                 >
                   {/* Fitted Substrate Frame */}
                   <div className="relative w-[75%] aspect-[4/3] flex items-center justify-center">
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent h-1/2 w-full animate-scanline pointer-events-none z-10" />
+                    {!isMobile && (
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent h-1/2 w-full animate-scanline pointer-events-none z-10" />
+                    )}
 
                     {/* Tightly Fitted HUD Markers */}
                     <div className="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-accent/40 z-20" />
@@ -123,7 +133,7 @@ export default function Features() {
                           className="absolute inset-0 z-30 flex flex-col items-center justify-center p-8 text-center"
                         >
                           <div className="mb-4">
-                            <Info className="w-6 h-6 text-accent animate-pulse" />
+                            <Info className={`w-6 h-6 text-accent ${!isMobile ? 'animate-pulse' : ''}`} />
                           </div>
                           <h4 className="font-mono text-[6px] md:text-[7px] text-accent font-bold tracking-[0.2em] md:tracking-[0.5em] uppercase mb-4">
                             [ ARCHITECTURAL_PHILOSOPHY ]
@@ -154,7 +164,7 @@ export default function Features() {
                   animate={{ opacity: showPhilosophy ? 0 : 1 }}
                   className="absolute bottom-8 left-8 right-8 flex justify-between font-mono text-[7px] text-white/20 uppercase tracking-[0.5em] z-20"
                 >
-                  <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" /> ENGINE_ACTIVE</span>
+                  <span className="flex items-center gap-2"><span className={`w-1.5 h-1.5 bg-accent rounded-full ${!isMobile ? 'animate-pulse' : ''}`} /> ENGINE_ACTIVE</span>
                   <span>LOAD: 12.4%</span>
                   <span>BLOCK: #88219</span>
                 </motion.div>
@@ -193,12 +203,14 @@ export default function Features() {
                   </p>
                 </div>
 
-                {/* Bottom Visual Animation */}
+                {/* Bottom Visual Animation - Disabled on mobile */}
                 <div className="mt-8 pt-6 border-t border-white/5 relative aspect-video overflow-hidden bg-black/40 border border-white/5">
-                  <FeatureCanvas
-                    variant={getVariant(feature.id)}
-                    className="w-full h-full opacity-40 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110"
-                  />
+                  {!isMobile && (
+                    <FeatureCanvas
+                      variant={getVariant(feature.id)}
+                      className="w-full h-full opacity-40 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent pointer-events-none" />
                   <div className="absolute bottom-2 left-3 font-mono text-[7px] text-accent uppercase tracking-widest">{feature.label}</div>
                 </div>

@@ -56,6 +56,15 @@ const glowPulse = {
 
 export default function Hero() {
   const [showPhilosophy, setShowPhilosophy] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section id="home" className="relative min-h-[calc(100vh-80px)] flex items-center overflow-hidden">
       {/* ── Animated Canvas Background ── */}
@@ -107,27 +116,27 @@ export default function Hero() {
               <h1 className="font-grotesk text-2xl md:text-3xl lg:text-5xl font-black text-white uppercase leading-[0.85] tracking-tighter">
                 <motion.span
                   className="inline-block"
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={isMobile ? { opacity: 0 } : { opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
                 >
                   Deterministic{' '}
                 </motion.span>
                 <br />
                 <motion.span
                   className="text-accent italic drop-shadow-[0_0_30px_rgba(255,215,0,0.2)] inline-block"
-                  initial={{ opacity: 0, x: -30, filter: 'blur(8px)' }}
+                  initial={isMobile ? { opacity: 0 } : { opacity: 0, x: -30, filter: 'blur(8px)' }}
                   animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                  transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
                 >
                   Simulation-First
                 </motion.span>{' '}
                 <br />
                 <motion.span
                   className="inline-block"
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={isMobile ? { opacity: 0 } : { opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
                 >
                   Research Stack
                 </motion.span>
@@ -174,11 +183,13 @@ export default function Hero() {
             <div className="relative w-full aspect-square flex items-center justify-center max-w-[280px] sm:max-w-[360px] md:max-w-[420px] lg:max-w-[480px] p-4 md:p-10">
 
               {/* ── Rotating Orbit Ring ── */}
-              <div className="absolute inset-[-15px] md:inset-[-20px] animate-spin-slow pointer-events-none">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-accent/40 rounded-full" />
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-accent/20 rounded-full" />
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-accent/30 rounded-full" />
-              </div>
+              {!isMobile && (
+                <div className="absolute inset-[-15px] md:inset-[-20px] animate-spin-slow pointer-events-none">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-accent/40 rounded-full" />
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-accent/20 rounded-full" />
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1 bg-accent/30 rounded-full" />
+                </div>
+              )}
 
               {/* ── Second orbit (counter-rotating) ── */}
               <div className="absolute inset-[-30px] md:inset-[-40px] animate-spin-reverse-slow pointer-events-none hidden md:block">
@@ -192,8 +203,8 @@ export default function Hero() {
 
               {/* Technical Frame Layer */}
               <motion.div
-                className="absolute inset-0 border border-white/10 bg-white/[0.02] rounded-3xl backdrop-blur-md overflow-hidden"
-                animate={glowPulse.animate}
+                className={`absolute inset-0 border border-white/10 bg-white/[0.02] rounded-3xl overflow-hidden ${!isMobile ? 'backdrop-blur-md' : ''}`}
+                animate={!isMobile ? glowPulse.animate : {}}
               >
                 {/* Corner Brackets — now animated */}
                 <motion.div
@@ -240,14 +251,16 @@ export default function Hero() {
 
               {/* Ambient Glow behind mascot — enhanced */}
               <div className="absolute inset-0 bg-accent/10 blur-[120px] rounded-full scale-75" />
-              <motion.div
-                className="absolute inset-0 bg-accent/5 blur-[80px] rounded-full scale-50"
-                animate={{
-                  scale: [0.5, 0.6, 0.5],
-                  opacity: [0.5, 0.8, 0.5],
-                }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              />
+              {!isMobile && (
+                <motion.div
+                  className="absolute inset-0 bg-accent/5 blur-[80px] rounded-full scale-50"
+                  animate={{
+                    scale: [0.5, 0.6, 0.5],
+                    opacity: [0.5, 0.8, 0.5],
+                  }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                />
+              )}
 
               {/* The Mascot */}
               <div
@@ -260,13 +273,13 @@ export default function Hero() {
                   src="/assets/images/xenor.gif"
                   alt="XENOR Mascot"
                   className={`w-full h-full object-contain relative z-10 transition-all duration-700 brightness-110 grayscale-[0.2] contrast-125 drop-shadow-[0_0_40px_rgba(255,215,0,0.15)] mix-blend-screen [mask-image:radial-gradient(circle_at_center,black_30%,transparent_90%)] ${showPhilosophy ? 'opacity-20 blur-md scale-90' : 'opacity-100 scale-95 md:scale-100 group-hover/mascot:scale-105'}`}
-                  animate={{
+                  animate={!isMobile ? {
                     filter: [
                       'brightness(1.1) contrast(1.25) grayscale(0.2)',
                       'brightness(1.2) contrast(1.3) grayscale(0.1)',
                       'brightness(1.1) contrast(1.25) grayscale(0.2)',
                     ],
-                  }}
+                  } : {}}
                   transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
                 />
 
