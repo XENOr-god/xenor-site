@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: 'XENØr Protocol',
     images: [
       {
-        url: '/assets/images/og-hero.png',
+        url: 'https://www.xenor.xyz/assets/images/og-hero.png',
         width: 1200,
         height: 630,
         alt: 'XENØr Protocol Hero',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'XENØr Protocol',
     description: 'Deterministic infrastructure for verifiable on-chain execution on Solana.',
-    images: ['/assets/images/og-hero.png'],
+    images: ['https://www.xenor.xyz/assets/images/og-hero.png'],
   },
 };
 
