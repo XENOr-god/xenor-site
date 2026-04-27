@@ -21,8 +21,8 @@ function useGlitchText(text: string, active: boolean) {
           i < frame / 2
             ? c
             : c === ' '
-            ? ' '
-            : GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]
+              ? ' '
+              : GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]
         ).join('')
       );
       if (frame >= chars.length * 2) clearInterval(interval);
@@ -105,17 +105,18 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       t += 0.008;
-      const R = 28;
+      const isMobile = window.innerWidth < 768;
+      const R = isMobile ? 60 : 40; // Increased size to reduce draw count
       const W = R * Math.sqrt(3);
       const H = R * 1.5;
-      const cols = Math.ceil(canvas.width / W) + 2;
-      const rows = Math.ceil(canvas.height / H) + 2;
-      for (let row = -1; row < rows; row++) {
-        for (let col = -1; col < cols; col++) {
+      const cols = Math.ceil(canvas.width / W) + 1;
+      const rows = Math.ceil(canvas.height / H) + 1;
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
           const cx = col * W + (row % 2 === 0 ? 0 : W / 2);
           const cy = row * H;
           const dist = Math.sqrt((cx - canvas.width / 2) ** 2 + (cy - canvas.height / 2) ** 2);
-          const pulse = Math.sin(t * 2 - dist * 0.01) * 0.5 + 0.5;
+          const pulse = Math.sin(t * 2 - dist * (isMobile ? 0.005 : 0.01)) * 0.5 + 0.5;
           const alpha = pulse * 0.04 + 0.01;
           drawHex(cx, cy, R - 2, alpha);
         }
@@ -253,8 +254,8 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
             {/* Outer glow */}
             <div className="absolute -inset-8 bg-accent/5 blur-[60px] rounded-full pointer-events-none" />
 
-            {/* Main panel */}
-            <div className="relative bg-black/70 border border-white/10 overflow-hidden backdrop-blur-xl">
+            {/* Main panel - Removed backdrop-blur for performance */}
+            <div className="relative bg-black border border-white/10 overflow-hidden">
 
               {/* Top gold accent line */}
               <motion.div
@@ -392,7 +393,7 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
                     {/* Typing indicator */}
                     {focused && name && (
                       <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-0.5">
-                        {[0,1,2].map(i => (
+                        {[0, 1, 2].map(i => (
                           <motion.div
                             key={i}
                             className="w-0.5 h-3 bg-accent/60"
@@ -464,7 +465,8 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
               transition={{ duration: 2, repeat: Infinity }}
             />
 
-            <div className="relative bg-black/80 border border-accent/20 overflow-hidden backdrop-blur-xl">
+            {/* Loading panel - Removed backdrop-blur for performance */}
+            <div className="relative bg-black border border-accent/20 overflow-hidden">
               {/* Animated top line */}
               <motion.div
                 className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent"
@@ -498,13 +500,12 @@ export default function EntryGate({ onComplete }: EntryGateProps) {
                     return (
                       <motion.div
                         key={i}
-                        className={`w-[10px] skew-x-[-8deg] transition-all duration-200 ${
-                          filled
+                        className={`w-[10px] skew-x-[-8deg] transition-all duration-200 ${filled
                             ? isActive
                               ? 'bg-accent shadow-[0_0_20px_rgba(255,215,0,0.8)]'
                               : 'bg-accent/70'
                             : 'bg-white/5'
-                        }`}
+                          }`}
                         style={{ height: filled ? `${24 + (isActive ? 10 : 0)}px` : '16px' }}
                         animate={filled && isActive ? { opacity: [0.7, 1, 0.7] } : {}}
                         transition={{ duration: 0.3, repeat: Infinity }}

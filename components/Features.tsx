@@ -82,7 +82,7 @@ export default function Features() {
           {/* Large Architecture Visual (7 cols) */}
           <div className="lg:col-span-7 relative group">
             <ScrollReveal direction="left" distance={40}>
-              <div className="relative aspect-[4/3] w-full border border-white/10 bg-black/40 overflow-hidden backdrop-blur-sm shadow-2xl">
+              <div className="relative aspect-[4/3] w-full border border-white/10 bg-black/60 overflow-hidden shadow-2xl">
                 {/* HUD Elements */}
                 <div className="absolute top-4 left-4 w-12 h-12 border-t-2 border-l-2 border-accent/40 z-20 group-hover:border-accent transition-all duration-500" />
                 <div className="absolute top-4 right-4 w-12 h-12 border-t-2 border-r-2 border-white/10 z-20" />
@@ -110,7 +110,7 @@ export default function Features() {
                     <img
                       src="/assets/images/gif/02-System-Architecture.gif"
                       alt="System Architecture"
-                      className={`w-full h-full object-contain mix-blend-screen transition-all duration-1000 brightness-110 relative z-10 [mask-image:radial-gradient(circle_at_center,black_30%,transparent_90%)] ${showPhilosophy ? 'opacity-20 scale-95 blur-sm' : 'opacity-80 group-hover/visual:opacity-100 group-hover/visual:scale-105'}`}
+                      className={`w-full h-full object-contain mix-blend-screen transition-all duration-1000 brightness-110 relative z-10 [mask-image:radial-gradient(circle_at_center,black_30%,transparent_90%)] ${showPhilosophy ? 'opacity-10 scale-95' : 'opacity-80 group-hover/visual:opacity-100 group-hover/visual:scale-105'}`}
                     />
 
                     {/* Philosophical Overlay */}

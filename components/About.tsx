@@ -65,8 +65,8 @@ export default function About() {
           <div className="lg:col-span-4 relative flex items-center justify-center">
             <ScrollReveal direction="up" distance={40} duration={0.8} className="w-full">
               <div className="relative w-full max-w-[400px] aspect-square flex items-center justify-center mx-auto group">
-                {/* Technical Frame with Intense Glow - No backdrop blur on mobile handled by .glass */}
-                <div className="absolute inset-0 bg-black/60 border border-white/10 backdrop-blur-xl group-hover:border-accent/40 transition-colors duration-500" />
+                {/* Technical Frame with Intense Glow - Removed backdrop-blur for performance */}
+                <div className="absolute inset-0 bg-black/80 border border-white/10 group-hover:border-accent/40 transition-colors duration-500" />
                 <div className="absolute inset-0 bg-accent/5 blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                 {/* Enhanced Corner Accents */}
@@ -90,7 +90,7 @@ export default function About() {
                     src="/assets/images/gif/01-Protocol-Infrastructure.gif"
                     alt="Protocol Infrastructure"
                     loading="lazy"
-                    className={`w-full h-full object-cover mix-blend-screen transition-all duration-700 relative z-10 [mask-image:radial-gradient(circle_at_center,black_30%,transparent_90%)] ${showPhilosophy ? 'opacity-20 scale-95 blur-md' : 'opacity-90 group-hover/visual:opacity-100 group-hover/visual:scale-110 group-hover/visual:brightness-125'}`}
+                    className={`w-full h-full object-cover mix-blend-screen transition-all duration-700 relative z-10 [mask-image:radial-gradient(circle_at_center,black_30%,transparent_90%)] ${showPhilosophy ? 'opacity-10 scale-95' : 'opacity-90 group-hover/visual:opacity-100 group-hover/visual:scale-105 group-hover/visual:brightness-110'}`}
                   />
 
                   {/* Philosophical Overlay */}

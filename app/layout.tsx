@@ -15,10 +15,33 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'XENØr Protocol',
-  description: 'Deterministic infrastructure for verifiable on-chain execution on Solana.',
+  title: 'XENØr Protocol | Deterministic Execution Substrate',
+  description: 'Deterministic infrastructure for verifiable on-chain execution on Solana. Built in Rust for absolute order.',
+  metadataBase: new URL('https://www.xenor.xyz'),
   icons: {
     icon: '/assets/images/xenor-gold.png',
+  },
+  openGraph: {
+    title: 'XENØr Protocol',
+    description: 'Deterministic infrastructure for verifiable on-chain execution on Solana.',
+    url: 'https://www.xenor.xyz',
+    siteName: 'XENØr Protocol',
+    images: [
+      {
+        url: '/assets/images/og-hero.png',
+        width: 1200,
+        height: 630,
+        alt: 'XENØr Protocol Hero',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'XENØr Protocol',
+    description: 'Deterministic infrastructure for verifiable on-chain execution on Solana.',
+    images: ['/assets/images/og-hero.png'],
   },
 };
 
@@ -30,18 +53,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${spaceMono.variable}`}>
       <body className="relative min-h-screen bg-bg-base text-text selection:bg-accent/30 selection:text-white font-mono antialiased">
-        {/* Global Blurry Dark GIF Background */}
-        <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110 brightness-[0.25] sm:brightness-[0.3] md:blur-[4px] will-change-transform hidden md:block"
-            style={{ backgroundImage: "url('/assets/images/background.gif')" }}
-          />
-          {/* Performant Background for Mobile / Static Layer for Desktop */}
-          <div className="absolute inset-0 bg-bg-base md:bg-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80" />
+        {/* Optimized Global Background */}
+        <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-black">
+          {/* Subtle static base to replace the heavy blurred GIF */}
+          <div className="absolute inset-0 bg-[#050505]" />
+          
+          {/* Performant static gradients */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0a05] to-black opacity-60" />
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(255,215,0,0.03),transparent_70%)]" />
 
-          {/* Subtle Mobile Grid to keep the aesthetic without the heavy GIF */}
-          <div className="absolute inset-0 grid-bg opacity-[0.03] md:hidden" />
+          {/* Subtle Grid to keep the technical aesthetic without GPU lag */}
+          <div className="absolute inset-0 opacity-[0.03] grid-bg" />
         </div>
         {children}
       </body>

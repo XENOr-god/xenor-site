@@ -183,7 +183,7 @@ export default function Contract() {
                     <img
                       src="/assets/images/goldxen.gif"
                       alt="Truth Artifact"
-                      className={`w-full h-full object-contain mix-blend-screen brightness-110 relative z-10 transition-all duration-700 [mask-image:radial-gradient(circle_at_center,black_30%,transparent_90%)] ${showPhilosophy ? 'opacity-20 blur-md scale-95' : 'opacity-90 group-hover/visual:scale-110'}`}
+                      className={`w-full h-full object-contain mix-blend-screen brightness-110 relative z-10 transition-all duration-700 [mask-image:radial-gradient(circle_at_center,black_30%,transparent_90%)] ${showPhilosophy ? 'opacity-10 scale-95' : 'opacity-90 group-hover/visual:scale-105'}`}
                     />
 
                     {/* Philosophical Overlay */}

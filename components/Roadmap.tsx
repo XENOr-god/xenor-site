@@ -104,7 +104,7 @@ export default function Roadmap() {
                     <img
                       src="/assets/images/gif/06-Protocol-Trajectory.gif"
                       alt="Protocol Trajectory"
-                      className={`w-full h-full object-contain mix-blend-screen transition-all duration-1000 brightness-110 relative z-10 [mask-image:radial-gradient(circle_at_center,black_30%,transparent_90%)] ${showPhilosophy ? 'opacity-20 blur-md scale-95' : 'opacity-90 group-hover/visual:scale-110'}`}
+                      className={`w-full h-full object-contain mix-blend-screen transition-all duration-1000 brightness-110 relative z-10 [mask-image:radial-gradient(circle_at_center,black_30%,transparent_90%)] ${showPhilosophy ? 'opacity-10 scale-95' : 'opacity-90 group-hover/visual:scale-105'}`}
                     />
 
                     {/* Philosophical Overlay */}
