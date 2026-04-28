@@ -15,7 +15,7 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'XENØr Protocol | Deterministic Execution Substrate',
+  title: 'XENØr Protocol',
   description: 'Deterministic infrastructure for verifiable on-chain execution on Solana. Built in Rust for absolute order.',
   metadataBase: new URL('https://www.xenor.xyz'),
   icons: {
@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     siteName: 'XENØr Protocol',
     images: [
       {
-        url: 'https://www.xenor.xyz/assets/images/og-hero.png',
+        url: 'https://www.xenor.xyz/assets/images/url.png',
         width: 1200,
         height: 630,
-        alt: 'XENØr Protocol Hero',
+        alt: 'XENØr Protocol',
       },
     ],
     locale: 'en_US',
@@ -57,7 +57,7 @@ export default function RootLayout({
         <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-black">
           {/* Subtle static base to replace the heavy blurred GIF */}
           <div className="absolute inset-0 bg-[#050505]" />
-          
+
           {/* Performant static gradients */}
           <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0a05] to-black opacity-60" />
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(255,215,0,0.03),transparent_70%)]" />
