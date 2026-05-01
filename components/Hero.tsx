@@ -68,16 +68,14 @@ export default function Hero() {
   return (
     <section id="home" className="relative min-h-[calc(100vh-80px)] flex items-center overflow-hidden">
       {/* ── Animated Canvas Background ── */}
-      <HeroCanvas />
+      {/* <HeroCanvas /> */}
 
       {/* ── Ambient Gradient Overlays ── */}
       <div className="absolute inset-0 pointer-events-none z-[1]">
         {/* Top gold bloom */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-accent/[0.06] blur-[180px] rounded-full" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-accent/[0.04] blur-[180px] rounded-full" />
         {/* Bottom fade to base */}
-        <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-bg-base to-transparent" />
-        {/* Side vignettes */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+        <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-black to-transparent" />
       </div>
 
       {/* ── Corner HUD elements ── */}
@@ -203,57 +201,57 @@ export default function Hero() {
 
               {/* Technical Frame Layer */}
               <motion.div
-                className={`absolute inset-0 border border-white/10 bg-white/[0.02] rounded-3xl overflow-hidden ${!isMobile ? 'backdrop-blur-md' : ''}`}
+                className={`absolute inset-0 border border-white/5 bg-black/20 rounded-3xl overflow-hidden ${!isMobile ? 'backdrop-blur-md shadow-[inset_0_0_30px_rgba(0,0,0,0.5)]' : ''}`}
                 animate={!isMobile ? glowPulse.animate : {}}
               >
-                {/* Corner Brackets — now animated */}
+                {/* Corner Brackets — cool neon glow */}
                 <motion.div
-                  className="absolute top-0 left-0 w-10 h-10 border-t-2 border-l-2 border-accent/40 rounded-tl-3xl"
-                  animate={{ borderColor: ['rgba(255,215,0,0.4)', 'rgba(255,215,0,0.7)', 'rgba(255,215,0,0.4)'] }}
+                  className="absolute top-0 left-0 w-10 h-10 border-t-2 border-l-2 border-accent/60 rounded-tl-3xl drop-shadow-[0_0_5px_rgba(255,215,0,0.3)]"
+                  animate={{ borderColor: ['rgba(255,215,0,0.4)', 'rgba(255,215,0,0.8)', 'rgba(255,215,0,0.4)'] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                 />
-                <div className="absolute top-0 right-0 w-10 h-10 border-t-2 border-r-2 border-white/10 rounded-tr-3xl" />
-                <div className="absolute bottom-0 left-0 w-10 h-10 border-b-2 border-l-2 border-white/10 rounded-bl-3xl" />
+                <div className="absolute top-0 right-0 w-10 h-10 border-t border-r border-white/10 rounded-tr-3xl" />
+                <div className="absolute bottom-0 left-0 w-10 h-10 border-b border-l border-white/10 rounded-bl-3xl" />
                 <motion.div
-                  className="absolute bottom-0 right-0 w-10 h-10 border-b-2 border-r-2 border-accent/40 rounded-br-3xl"
-                  animate={{ borderColor: ['rgba(255,215,0,0.4)', 'rgba(255,215,0,0.7)', 'rgba(255,215,0,0.4)'] }}
+                  className="absolute bottom-0 right-0 w-10 h-10 border-b-2 border-r-2 border-accent/60 rounded-br-3xl drop-shadow-[0_0_5px_rgba(255,215,0,0.3)]"
+                  animate={{ borderColor: ['rgba(255,215,0,0.4)', 'rgba(255,215,0,0.8)', 'rgba(255,215,0,0.4)'] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
                 />
 
                 {/* Status Telemetry */}
-                <div className="absolute top-6 left-8 flex flex-col gap-1">
+                <div className="absolute top-6 left-8 flex flex-col gap-1 z-20">
                   <span className="font-mono text-[7px] text-white/20 uppercase tracking-widest">SCAN_STATUS</span>
                   <span className="font-mono text-[8px] text-accent font-bold uppercase tracking-widest animate-pulse">[STABLE]</span>
                 </div>
-                <div className="absolute bottom-6 right-8 text-right flex flex-col gap-1">
+                <div className="absolute bottom-6 right-8 text-right flex flex-col gap-1 z-20">
                   <span className="font-mono text-[7px] text-white/20 uppercase tracking-widest">BUFFER_SYNC</span>
-                  <span className="font-mono text-[8px] text-white/40 font-bold uppercase tracking-widest">0.0004MS</span>
+                  <span className="font-mono text-[8px] text-white/50 font-bold uppercase tracking-widest">0.0004MS</span>
                 </div>
 
                 {/* Additional HUD readouts */}
-                <div className="absolute top-6 right-8 flex flex-col gap-1 text-right">
+                <div className="absolute top-6 right-8 flex flex-col gap-1 text-right z-20">
                   <span className="font-mono text-[6px] text-white/10 uppercase tracking-widest">FRAME_RATE</span>
-                  <span className="font-mono text-[7px] text-accent/40 font-bold uppercase tracking-widest">60 FPS</span>
+                  <span className="font-mono text-[7px] text-accent/50 font-bold uppercase tracking-widest">60 FPS</span>
                 </div>
-                <div className="absolute bottom-6 left-8 flex flex-col gap-1">
+                <div className="absolute bottom-6 left-8 flex flex-col gap-1 z-20">
                   <span className="font-mono text-[6px] text-white/10 uppercase tracking-widest">RESOLUTION</span>
-                  <span className="font-mono text-[7px] text-accent/40 font-bold uppercase tracking-widest">4K UHD</span>
+                  <span className="font-mono text-[7px] text-accent/50 font-bold uppercase tracking-widest">4K UHD</span>
                 </div>
 
                 {/* Subtle Grid Pattern Overlay */}
-                <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(to_right,#888_1px,transparent_1px),linear-gradient(to_bottom,#888_1px,transparent_1px)] bg-[size:24px_24px]" />
+                <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(to_right,#888_1px,transparent_1px),linear-gradient(to_bottom,#888_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
 
                 {/* Scan line inside frame */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                  <div className="scanline opacity-30" />
+                <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+                  <div className="scanline opacity-20" />
                 </div>
               </motion.div>
 
-              {/* Ambient Glow behind mascot — enhanced */}
-              <div className="absolute inset-0 bg-accent/10 blur-[120px] rounded-full scale-75" />
+              {/* Ambient Glow behind mascot */}
+              <div className="absolute inset-0 bg-accent/5 blur-[120px] rounded-full scale-75 pointer-events-none" />
               {!isMobile && (
                 <motion.div
-                  className="absolute inset-0 bg-accent/5 blur-[80px] rounded-full scale-50"
+                  className="absolute inset-0 bg-accent/5 blur-[80px] rounded-full scale-50 pointer-events-none"
                   animate={{
                     scale: [0.5, 0.6, 0.5],
                     opacity: [0.5, 0.8, 0.5],
@@ -264,7 +262,7 @@ export default function Hero() {
 
               {/* The Mascot */}
               <div
-                className="relative w-full h-full flex items-center justify-center cursor-help group/mascot"
+                className="relative w-full h-full flex items-center justify-center cursor-crosshair group/mascot z-20"
                 onMouseEnter={() => setShowPhilosophy(true)}
                 onMouseLeave={() => setShowPhilosophy(false)}
                 onClick={() => setShowPhilosophy(!showPhilosophy)}
@@ -272,33 +270,34 @@ export default function Hero() {
                 <motion.img
                   src="/assets/images/xenor.gif"
                   alt="XENOR Mascot"
-                  className={`w-full h-full object-contain relative z-10 transition-all duration-700 brightness-110 grayscale-[0.2] contrast-125 drop-shadow-[0_0_40px_rgba(255,215,0,0.15)] mix-blend-screen [mask-image:radial-gradient(circle_at_center,black_30%,transparent_90%)] ${showPhilosophy ? 'opacity-20 blur-md scale-90' : 'opacity-100 scale-95 md:scale-100 group-hover/mascot:scale-105'}`}
+                  className={`w-full h-full object-contain relative z-10 transition-all duration-700 brightness-125 grayscale-[0.1] contrast-125 mix-blend-screen [mask-image:radial-gradient(circle_at_center,black_40%,transparent_90%)] ${showPhilosophy ? 'opacity-10 blur-sm scale-90' : 'opacity-100 scale-95 md:scale-100 group-hover/mascot:scale-105 group-hover/mascot:brightness-150'}`}
                   animate={!isMobile ? {
                     filter: [
-                      'brightness(1.1) contrast(1.25) grayscale(0.2)',
-                      'brightness(1.2) contrast(1.3) grayscale(0.1)',
-                      'brightness(1.1) contrast(1.25) grayscale(0.2)',
+                      'brightness(1.25) contrast(1.25) grayscale(0.1)',
+                      'brightness(1.4) contrast(1.35) grayscale(0)',
+                      'brightness(1.25) contrast(1.25) grayscale(0.1)',
                     ],
                   } : {}}
                   transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
                 />
 
-                {/* Philosophical Overlay */}
+                {/* Philosophical Overlay - Clean Text with Drop Shadow */}
                 <AnimatePresence>
                   {showPhilosophy && (
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                      initial={{ opacity: 0, scale: 0.95, y: 5 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.9, y: 10 }}
+                      exit={{ opacity: 0, scale: 0.95, y: 5 }}
+                      transition={{ duration: 0.3 }}
                       className="absolute inset-0 z-40 flex flex-col items-center justify-center p-8 text-center"
                     >
                       <div className="mb-4">
-                        <Info className="w-6 h-6 text-accent animate-pulse" />
+                        <Info className="w-6 h-6 text-accent animate-pulse drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]" />
                       </div>
-                      <h4 className="font-mono text-[7px] text-accent font-black tracking-[0.5em] uppercase mb-3">
+                      <h4 className="font-mono text-[8px] text-accent font-black tracking-[0.5em] uppercase mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                         [ PROTOCOL_GHOST ]
                       </h4>
-                      <p className="font-mono text-[8px] text-white/80 leading-relaxed uppercase tracking-[0.2em] max-w-xs">
+                      <p className="font-mono text-[8px] text-white/90 leading-relaxed uppercase tracking-[0.2em] max-w-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] font-semibold">
                         "XENØr: The Ghost in the Substrate. A visual anchor for deterministic simulation and absolute verifiable proof."
                       </p>
                     </motion.div>

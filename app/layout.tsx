@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Space_Grotesk, Space_Mono } from 'next/font/google';
 import './globals.css';
+import HeroCanvas from '@/components/ui/HeroCanvas';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -53,17 +54,41 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${spaceMono.variable}`}>
       <body className="relative min-h-screen bg-bg-base text-text selection:bg-accent/30 selection:text-white font-mono antialiased">
-        {/* Optimized Global Background */}
+        {/* Global Background */}
         <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-black">
-          {/* Subtle static base to replace the heavy blurred GIF */}
-          <div className="absolute inset-0 bg-[#050505]" />
+          {/* Ambient Gold Bloom */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent/[0.05] blur-[150px] rounded-full" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/[0.02] blur-[150px] rounded-full" />
 
-          {/* Performant static gradients */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0a05] to-black opacity-60" />
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(255,215,0,0.03),transparent_70%)]" />
+          {/* Animated Background GIF */}
+          <div 
+            className="absolute inset-0 opacity-40 mix-blend-screen"
+            style={{ 
+              backgroundImage: "url('/assets/images/background.gif')", 
+              backgroundSize: 'cover', 
+              backgroundPosition: 'center', 
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: 'fixed'
+            }} 
+          />
 
-          {/* Subtle Grid to keep the technical aesthetic without GPU lag */}
-          <div className="absolute inset-0 opacity-[0.03] grid-bg" />
+          {/* Global Hero Canvas Animation (if still desired) */}
+          <div className="absolute inset-0 opacity-60">
+            <HeroCanvas />
+          </div>
+
+          {/* Overlay gradients to blend */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black opacity-90" />
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,rgba(255,215,0,0.08),transparent_70%)]" />
+
+          {/* Dark Vintage Vignette (gelap di pinggir) */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.85)_100%)] pointer-events-none" />
+
+          {/* Film Grain / Noise Effect */}
+          <div className="absolute inset-0 noise-overlay opacity-[0.15] mix-blend-overlay pointer-events-none" />
+
+          {/* Subtle Grid */}
+          <div className="absolute inset-0 opacity-[0.03] grid-bg pointer-events-none" />
         </div>
         {children}
       </body>
