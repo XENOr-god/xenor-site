@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { XENOR } from '@/lib/constants';
 import { motion, AnimatePresence } from 'framer-motion';
-import HeroCanvas from './ui/HeroCanvas';
 import {
   ArrowRight,
   Circle,
